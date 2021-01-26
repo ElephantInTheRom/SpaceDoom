@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Graphics/Animations/ShipAnimation.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=2]
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+Speed = 300
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+animation = "idle"
+playing = true
+
+[node name="Shape" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32, 24, 32, 16, 28, 4, 32, -4, 32, -16, 28, -24, 32, -32, 32, -32, 0, -28, 0, -16, -4, -8, -8 )
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionPolygon2D" parent="Area"]
+polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32, 24, 32, 16, 28, 4, 32, -4, 32, -16, 28, -24, 32, -32, 32, -32, 0, -28, 0, -16, -4, -8, -8 )

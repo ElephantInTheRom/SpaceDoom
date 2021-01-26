@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "juWqNzEyrJJFkm2TnHcXaMTGoHh8HswM5OVNmJY08fI3s45tENkDAOcgUFNIHKwvaf+VNXTnwpm7APsnfY9qgA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\hayde\\Documents\\Godot\\SpaceDoom\\SpaceDoom.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hayde\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
