@@ -2,14 +2,17 @@ using Godot;
 using System;
 
 using SpaceDoom.Library;
+using SpaceDoom.Library.Abstract;
+using SpaceDoom.Systems.Weapons;
 
-public class Player : KinematicBody2D
+public class Player : KinematicBody2D, IAttacker
 {
     //Data
     [Export]
     private int Speed { get; set; }
     //Scripts
     private AnimationController AnimationController { get; set; }
+    public RayCast2D HitScanRayCast { get; set; }
     //Events
 
     //Nodes
@@ -22,8 +25,11 @@ public class Player : KinematicBody2D
         base._Ready();
 
         Sprite = GetNode<AnimatedSprite>("Sprite");
+        HitScanRayCast = GetNode<RayCast2D>("HitScanCast");
 
         AnimationController = new AnimationController(Sprite);
+
+        SelectedWeapon = new LaserGun(); //For testing this is the only selected weapon
     }
 
     public override void _Process(float delta)
@@ -35,7 +41,15 @@ public class Player : KinematicBody2D
         RotateToLookAt(GetViewport().GetMousePosition()); //Force the ship to face towards the mouse cursor
     }
 
-    // - - - Methods for pointing and targeting - - - \\
+    // - - - Methods for targeting and combat - - - \\
+    private Weapon SelectedWeapon { get; set; }
+
+    private void FireWeapon()
+    {
+        GD.Print("Firing selected weapon. . .");
+        SelectedWeapon.FireWeapon(this);
+    }
+
     private void RotateToLookAt(Vector2 target)
     {
         Vector2 hypotenuse;
@@ -57,10 +71,10 @@ public class Player : KinematicBody2D
         if (Input.IsActionPressed("move_left")) { ProcessMovement(Direction.Left, delta); }
         if (Input.IsActionPressed("move_right")) { ProcessMovement(Direction.Right, delta); }
         //If none of these return true this freame, it is okay to assume we are not moving.
-        if (Input.IsActionPressed("mouse_left")) { }
-        if (Input.IsActionPressed("mouse_right")) { }
-        if (Input.IsActionPressed("space")) { }
-        if (Input.IsActionPressed("interact")) { }
+        if (Input.IsActionJustPressed("mouse_left")) { FireWeapon(); }
+        if (Input.IsActionJustPressed("mouse_right")) { }
+        if (Input.IsActionJustPressed("space")) { }
+        if (Input.IsActionJustPressed("interact")) { }
     }
 
     private void ProcessMovement(Direction dir, float delta)

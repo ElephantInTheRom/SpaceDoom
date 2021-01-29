@@ -19,3 +19,6 @@ polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32
 
 [node name="Shape" type="CollisionPolygon2D" parent="Area"]
 polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32, 24, 32, 16, 28, 4, 32, -4, 32, -16, 28, -24, 32, -32, 32, -32, 0, -28, 0, -16, -4, -8, -8 )
+
+[node name="HitScanCast" type="RayCast2D" parent="."]
+enabled = true
