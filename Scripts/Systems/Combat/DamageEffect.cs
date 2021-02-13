@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceDoom.Systems.Weapons
+namespace SpaceDoom.Systems.Combat
 {
     //This class outlines different damage effects, eg Burning, exploding, freezing
 

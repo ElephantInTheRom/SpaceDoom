@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 using SpaceDoom.Library.Abstract;
-using SpaceDoom.Systems.Weapons;
+using SpaceDoom.Systems.Combat;
 //This class controls the node that handles the visual effects and timers 
 //associated with recieving damage and combat in the game. 
 public class DamageFXManager : Node2D, IDamageFXManager
@@ -14,7 +14,7 @@ public class DamageFXManager : Node2D, IDamageFXManager
     public Particles2D LaserHitParticles { get; private set; }
 
     //Data
-    public IDamageableEntity Parent { private get; set; }
+    public IDamageable Parent { private get; set; }
 
     //Godot methods - - - \\
     public override void _Ready()
@@ -25,14 +25,14 @@ public class DamageFXManager : Node2D, IDamageFXManager
     }
 
     //Damage Effect Routing - - -\\
-    public void TakeDamage(IAttacker sender, Weapon weaponUsed, DamageEffect effect)
+    public void TakeDamage(DamageEffect effect)
     {
         switch(effect.EffectType)
         {
             case DamageEffectType.BluntDamage:
                 //Just do damage to the parent
                 GD.Print("Blunt Damage Recieved!");
-                LaserHitParticles.Emitting = true;
+                PlayParticles(LaserHitParticles);
                 break;
             case DamageEffectType.FireDamage:
                 //Do damage to the parent, and repeat damage at interval for period of time
@@ -52,4 +52,25 @@ public class DamageFXManager : Node2D, IDamageFXManager
                 break;
         }
     }
+
+    //Particle Effects  - - -\\
+    private void PlayParticles(Particles2D emitter)
+    {
+        if (emitter != null)
+        {
+            emitter.Emitting = false;
+            emitter.Emitting = true;
+        }
+    }
+
+    private void PlayParticles(string emitterName)
+    {
+        Particles2D emitter = GetNode<Particles2D>(emitterName);
+        if(emitter != null)
+        {
+            emitter.Emitting = false;
+            emitter.Emitting = true;
+        }
+    }
+
 }

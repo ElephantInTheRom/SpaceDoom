@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using Godot;
 
-using SpaceDoom.Systems.Weapons;
+using SpaceDoom.Systems.Combat;
 
 namespace SpaceDoom.Library.Abstract
 {
     public interface IDamageFXManager
     {
-        void TakeDamage(IAttacker sender, Weapon weaponUsed, DamageEffect effect);
+        void TakeDamage(DamageEffect effect);
     }
 
-    public interface IDamageableEntity
+    //An IDamageable is any entitiy that can recieve a combat event
+    public interface IDamageable
     {
-        DamageFXManager DMFXManager { get; set; }
-        //void TakeDamage(IAttacker sender, Weapon weaponUsed, DamageEffect effect);
+        void ProcessCombatEvent(CombatEvent comEvent);
     }
 
+    //An IAttacker is any entity that can send a combat event and recieve a reply about an event
     public interface IAttacker
     {
+        void ProcessCombatReply(CombatReply comReply);
+
+        RayCast2D HitScanRaycast { get; set; }
         Vector2 Position { get; set; }
-        float RotationDegrees { get; set; }
-        RayCast2D HitScanRayCast { get; set; }
     }
 }
