@@ -14,10 +14,13 @@ public class GrenadeProjectile : RigidBody2D
     private Vector2 Velocity { get; set; }
     private List<PhysicsBody2D> BodiesInRadius { get; set; }
     private float DetTime { get; set; }
+    private bool Exploded { get; set; } = false;
     //Packages
     public CombatEvent _CombatEvent { get; private set; }
     //Nodes
     private Timer DetTimer { get; set; }
+    private AnimatedSprite Sprite { get; set; }
+    private Particles2D ExplosionParticles { get; set; }
 
     public void SetData(Vector2 target, CombatEvent comEvt, float detTime)
     {
@@ -34,11 +37,18 @@ public class GrenadeProjectile : RigidBody2D
         base._Ready();
 
         BodiesInRadius = new List<PhysicsBody2D>();
+        Sprite = GetNode<AnimatedSprite>("Sprite");
         DetTimer = GetNode<Timer>("DetTimer");
+        ExplosionParticles = GetNode<Particles2D>("ExplosionParticles");
 
         Position = StartPos;
         Push();
         DetTimer.Start(DetTime);
+    }
+
+    public override void _Process(float delta)
+    {
+        if(Exploded && ExplosionParticles.Emitting == false) { QueueFree(); }
     }
 
     // - - - Behaviors - - - 
@@ -55,7 +65,10 @@ public class GrenadeProjectile : RigidBody2D
             target.ProcessCombatEvent(_CombatEvent);
         }
         //Play explosion effects
-        QueueFree();
+        Sprite.Hide();
+        AppliedForce = Vector2.Zero;
+        ExplosionParticles.Emitting = true;
+        Exploded = true;
     }
 
     // - - - Signals - - - 
