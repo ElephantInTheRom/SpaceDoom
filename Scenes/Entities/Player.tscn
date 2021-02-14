@@ -7,6 +7,7 @@
 z_index = 1
 collision_mask = 7
 script = ExtResource( 2 )
+Speed = 300
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
@@ -20,6 +21,7 @@ polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32
 
 [node name="Area" type="Area2D" parent="."]
 rotation = 1.5708
+collision_mask = 4
 
 [node name="Shape" type="CollisionPolygon2D" parent="Area"]
 polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32, 24, 32, 16, 28, 4, 32, -4, 32, -16, 28, -24, 32, -32, 32, -32, 0, -28, 0, -16, -4, -8, -8 )
@@ -28,6 +30,7 @@ polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32
 rotation = -1.5708
 enabled = true
 cast_to = Vector2( 0, 9 )
+collision_mask = 2
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -40,3 +43,5 @@ Actual angle:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HitscanLayer" type="YSort" parent="."]

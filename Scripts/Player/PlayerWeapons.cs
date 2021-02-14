@@ -9,14 +9,14 @@ namespace SpaceDoom.Systems.Combat
     // - - - Hitscan Weapons - - - \\
     public class LaserGun : HitscanWeapon
     {
-        public LaserGun(SceneBase activeSceneBase)
+        public LaserGun(YSort projLayer)
         {
             Name = "LaserGun";
             Damage = 5;
             Effect = new BluntDamageEffect();
 
-            DecalLayer = activeSceneBase.HitscanLayer;
-            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laser1.tscn");
+            DecalLayer = projLayer;
+            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laser01.tscn");
         }
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)

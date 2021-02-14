@@ -30,13 +30,14 @@ public class Player : KinematicBody2D, IAttacker
         base._Ready();
         //Initialize general data
         CurrentSceneBase = GetNode<SceneBase>("/root/Main");
+
         Sprite = GetNode<AnimatedSprite>("Sprite");
         HitScanRaycast = GetNode<RayCast2D>("HitScanCast");
         TestLabel = GetNode<Label>("Label");
 
         AnimationController = new AnimationController(Sprite);
         //Initialize Combat and targeting
-        SelectedWeapon = new LaserGun(CurrentSceneBase); //For testing this is the only selected weapon
+        SelectedWeapon = new LaserGun(CurrentSceneBase.GetNode<YSort>("HitscanLayer")); //For testing this is the only selected weapon
         //Initialize Movement
         DirectionsThisFrame = new DirectionQueue();
     }
