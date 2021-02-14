@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Godot;
+using System;
 
-namespace SpaceDoom.Scripts.Systems.Projectiles
+using SpaceDoom.Systems.Combat;
+
+public class GrenadeProjectile : RigidBody2D
 {
-    class GrenadeProjectile
-    {
-    }
+    //Data
+    private Vector2 Target { get; set; }
+    //Packages
+    public CombatEvent _CombatEvent { get; private set; }
+    //Nodes
+    private Timer DetTimer { get; set; }
 }

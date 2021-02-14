@@ -15,6 +15,7 @@ namespace SpaceDoom.Systems.Combat
         public DamageEffect Effect { get; protected set; }
 
         protected PackedScene ProjectileScene { get; set; }
+        protected YSort ProjectileLayer { get; set; }
         protected int Range { get; set; }
 
         public abstract void FireWeapon(IAttacker attacker, Vector2 target);

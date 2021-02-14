@@ -78,14 +78,20 @@ namespace SpaceDoom.Systems.Combat
 
     public class Grenade : ProjectileWeapon
     {
-        public Grenade()
+        public Grenade(YSort projLayer)
         {
             Name = "Grenade";
             Damage = 20;
+            Effect = new ExplosionDamageEffect();
             ProjectileTime = 3f;
+            ProjectileLayer = projLayer;
+            ProjectileScene = GD.Load<PackedScene>("res://Scenes/Projectiles/Grenade01.tscn");
         }
 
-
+        public override void FireWeapon(IAttacker attacker, Vector2 target)
+        {
+            
+        }
     }
 
 

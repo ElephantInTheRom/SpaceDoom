@@ -38,6 +38,7 @@ collision_mask = 6
 shape = SubResource( 3 )
 
 [node name="DetTimer" type="Timer" parent="."]
+[connection signal="body_entered" from="." to="." method="OnBodyCollision"]
 [connection signal="body_entered" from="ExplosionRadius" to="." method="RadiusBodyEntered"]
 [connection signal="body_exited" from="ExplosionRadius" to="." method="RadiusBodyExited"]
 [connection signal="timeout" from="DetTimer" to="." method="OnDetonationTimeout"]
