@@ -38,7 +38,7 @@ public class Player : KinematicBody2D, IAttacker
 
         AnimationController = new AnimationController(Sprite);
         //Initialize Combat and targeting
-        SelectedWeapon = new LaserGun(ProjectileLayer); //For testing this is the only selected weapon
+        SelectedWeapon = new Grenade(ProjectileLayer);
         //Initialize Movement
         DirectionsThisFrame = new DirectionQueue();
     }

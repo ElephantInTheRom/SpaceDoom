@@ -93,7 +93,7 @@ namespace SpaceDoom.Systems.Combat
             //Create a new projectile and pass this data onto its script
             var pInst = ProjectileScene.Instance();
             var pScript = pInst as GrenadeProjectile;
-            pScript.SetData(target, new CombatEvent(this, attacker));
+            pScript.SetData(target, new CombatEvent(this, attacker), ProjectileTime);
             ProjectileLayer.AddChild(pInst);
         }
     }
