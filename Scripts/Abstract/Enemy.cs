@@ -8,8 +8,10 @@ namespace SpaceDoom.Library.Abstract
     public class Enemy : KinematicBody2D, IDamageable
     {
         //Data
-        public int Health { get; protected set; } = 100;
-        public int Armor { get; protected set; } = 0;
+        [Export]
+        public int Health { get; protected set; }
+        [Export]
+        public int Armor { get; protected set; }
 
         //Nodes
         protected AnimatedSprite Sprite { get; set; }
@@ -20,6 +22,7 @@ namespace SpaceDoom.Library.Abstract
 
         //Events
         public event Action<int> HealthChanged; //Action is invoked every time health is changed with the difference in health
+        public event Action EnemyDied;
 
         //Godot methods
         public override void _Ready()
@@ -35,10 +38,8 @@ namespace SpaceDoom.Library.Abstract
             HealthChanged += Healthbar.HealthChanged;
         }
 
-        public void TestLog(int line) { GD.Print(line); }
-
         //- - - Damage interaction methdos - - -\\
-        public void ProcessCombatEvent(CombatEvent comEvent)
+        public virtual void ProcessCombatEvent(CombatEvent comEvent)
         {
             bool fatal = (Health - comEvent.DamageSent) <= 0;
             int actualDamage = fatal ? Health : comEvent.DamageSent;
@@ -50,9 +51,10 @@ namespace SpaceDoom.Library.Abstract
             if (fatal) { TriggerDeath(); }
         }
 
-        public void TriggerDeath()
+        public virtual void TriggerDeath()
         {
             GD.Print("Enemy down!");
+            if (EnemyDied != null) { EnemyDied(); }
             QueueFree();
         }
     }

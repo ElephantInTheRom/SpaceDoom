@@ -12,3 +12,20 @@ texture = ExtResource( 2 )
 centered = false
 
 [node name="FriendlyProjectiles" type="YSort" parent="."]
+
+[node name="EnemySpawnPositons" type="CanvasLayer" parent="."]
+
+[node name="node1" type="Node2D" parent="EnemySpawnPositons"]
+position = Vector2( 128, 128 )
+
+[node name="node2" type="Node2D" parent="EnemySpawnPositons"]
+position = Vector2( 448, 64 )
+
+[node name="node3" type="Node2D" parent="EnemySpawnPositons"]
+position = Vector2( 640, 192 )
+
+[node name="node4" type="Node2D" parent="EnemySpawnPositons"]
+position = Vector2( 840, 72 )
+
+[node name="node5" type="Node2D" parent="EnemySpawnPositons"]
+position = Vector2( 1168, 152 )
