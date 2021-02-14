@@ -11,7 +11,7 @@ public class GrenadeProjectile : RigidBody2D
 {
     //Data
     private Vector2 StartPos { get; set; }
-    private Vector2 Target { get; set; }
+    private Vector2 Velocity { get; set; }
     private List<PhysicsBody2D> BodiesInRadius { get; set; }
     private float DetTime { get; set; }
     //Packages
@@ -21,10 +21,12 @@ public class GrenadeProjectile : RigidBody2D
 
     public void SetData(Vector2 target, CombatEvent comEvt, float detTime)
     {
-        Target = target;
         _CombatEvent = comEvt;
         StartPos = comEvt.Attacker.Position;
         DetTime = detTime;
+
+        Velocity = new Vector2(target.x - StartPos.x, target.y - StartPos.y);
+        if (!Velocity.IsNormalized()) { Velocity = Velocity.Normalized(); }
     }
 
     public override void _Ready()
@@ -39,16 +41,10 @@ public class GrenadeProjectile : RigidBody2D
         DetTimer.Start(DetTime);
     }
 
-    public override void _PhysicsProcess(float delta)
-    {
-        base._PhysicsProcess(delta);
-    }
-
     // - - - Behaviors - - - 
     private void Push()
     {
-        LinearVelocity = Target.Normalized() * 300;
-        GD.Print(LinearVelocity);
+        AppliedForce = Velocity * 50;
     }
 
     private void Detonate()
@@ -77,6 +73,7 @@ public class GrenadeProjectile : RigidBody2D
 
     public void OnBodyCollision(PhysicsBody2D body) 
     {
+        GD.Print("Body collided!");
         //We cant scan for specific collision layers yet so this will have to do
         if(body.CollisionLayer != CollisionLayer) { Detonate(); }
     }
