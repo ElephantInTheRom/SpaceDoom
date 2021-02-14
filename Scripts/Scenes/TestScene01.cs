@@ -2,6 +2,7 @@ using Godot;
 using System;
 
 using SpaceDoom.Scenes;
+using SpaceDoom.Library.Abstract;
 
 public class TestScene01 : SceneBase
 {
@@ -24,11 +25,29 @@ public class TestScene01 : SceneBase
         LoadChildAt((KinematicBody2D)PlayerScene.Instance(), new Vector2(600, 400));
     }
 
+    public override void _Process(float delta)
+    {
+        base._Process(delta);
+
+        GetNode<Label>("TestLabel").Text = $"Enemies in scene: {EnemyCount}";
+    }
+
     //Code for spawning enemy at a testing nodes
+    public void EnemyTimeout()
+    {
+        if(EnemyCount < 7) { SpawnEnemy(); }
+    }
+
+    private void EnemyDown() => EnemyCount--;
+
     private void SpawnEnemy()
     {
         Node2D spawner = GetNode<Node2D>($"EnemySpawnPositons/node{rng.Next(1,5)}");
         Vector2 offset = new Vector2(rng.Next(-100, 100), rng.Next(-100, 100));
-        LoadChildAt((KinematicBody2D)EnemyScene.Instance(), spawner.Position + offset);
+        var eInst = EnemyScene.Instance();
+        var eScript = eInst as Enemy;
+        eScript.EnemyDied += EnemyDown;
+        LoadChildAt((KinematicBody2D)eInst, spawner.Position + offset);
+        EnemyCount++;
     }
 }

@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Scenes/TestScene01.cs" type="Script" id=1]
 [ext_resource path="res://Graphics/Placeholder/Background.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/montserrat/Montserrat-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,6 +16,15 @@ script = ExtResource( 1 )
 scale = Vector2( 0.666667, 0.666667 )
 texture = ExtResource( 2 )
 centered = false
+
+[node name="TestLabel" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "Enemies In scene:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FriendlyProjectiles" type="YSort" parent="."]
 
@@ -29,3 +44,8 @@ position = Vector2( 840, 72 )
 
 [node name="node5" type="Node2D" parent="EnemySpawnPositons"]
 position = Vector2( 1168, 152 )
+
+[node name="EnemySpawnTimer" type="Timer" parent="EnemySpawnPositons"]
+wait_time = 2.0
+autostart = true
+[connection signal="timeout" from="EnemySpawnPositons/EnemySpawnTimer" to="." method="EnemyTimeout"]
