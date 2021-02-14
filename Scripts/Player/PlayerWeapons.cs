@@ -76,11 +76,11 @@ namespace SpaceDoom.Systems.Combat
 
     // - - - Projectile Weapons - - - \\
 
-    public class Rocket : ProjectileWeapon
+    public class Grenade : ProjectileWeapon
     {
-        public Rocket()
+        public Grenade()
         {
-            Name = "Rocket";
+            Name = "Grenade";
             Damage = 20;
             ProjectileTime = 3f;
         }

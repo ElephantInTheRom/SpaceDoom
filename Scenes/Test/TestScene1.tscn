@@ -11,4 +11,4 @@ scale = Vector2( 0.666667, 0.666667 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="HitscanLayer" type="YSort" parent="."]
+[node name="FriendlyProjectiles" type="YSort" parent="."]
