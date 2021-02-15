@@ -6,48 +6,48 @@
 [ext_resource path="res://Aesprite/laserHitParticle01.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Enemies/Enemy_Yellow.png" type="Texture" id=5]
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 192, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 256, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 320, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=8]
 radius = 33.8787
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=9]
 emission_shape = 1
 emission_sphere_radius = 5.0
 flag_disable_z = true
@@ -68,12 +68,12 @@ Health = 10
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 rotation = 3.14159
-frames = SubResource( 10 )
+frames = SubResource( 7 )
 animation = "idle"
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 2 )
+shape = SubResource( 8 )
 
 [node name="DmgFXManager" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -87,7 +87,7 @@ emitting = false
 amount = 10
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 3 )
+process_material = SubResource( 9 )
 texture = ExtResource( 4 )
 
 [node name="Healthbar" type="Polygon2D" parent="."]

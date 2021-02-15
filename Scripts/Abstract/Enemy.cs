@@ -54,7 +54,7 @@ namespace SpaceDoom.Library.Abstract
         public virtual void TriggerDeath()
         {
             GD.Print("Enemy down!");
-            if (EnemyDied != null) { EnemyDied(); }
+            if (EnemyDied != null) { EnemyDied();  }
             QueueFree();
         }
     }

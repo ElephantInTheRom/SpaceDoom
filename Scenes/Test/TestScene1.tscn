@@ -12,23 +12,8 @@ font_data = ExtResource( 3 )
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.666667, 0.666667 )
-texture = ExtResource( 2 )
-centered = false
-
-[node name="TestLabel" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 1 )
-text = "Enemies In scene:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FriendlyProjectiles" type="YSort" parent="."]
-
 [node name="EnemySpawnPositons" type="CanvasLayer" parent="."]
+layer = -1
 
 [node name="node1" type="Node2D" parent="EnemySpawnPositons"]
 position = Vector2( 128, 128 )
@@ -48,4 +33,26 @@ position = Vector2( 1168, 152 )
 [node name="EnemySpawnTimer" type="Timer" parent="EnemySpawnPositons"]
 wait_time = 2.0
 autostart = true
+
+[node name="BackgroundObjects" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="Sprite" parent="BackgroundObjects"]
+scale = Vector2( 0.666667, 0.666667 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="TestLabel" type="Label" parent="BackgroundObjects"]
+margin_right = 272.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 1 )
+text = "Enemies In scene:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FriendlyProjectiles" type="YSort" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
 [connection signal="timeout" from="EnemySpawnPositons/EnemySpawnTimer" to="." method="EnemyTimeout"]

@@ -9,6 +9,8 @@ public class TestScene01 : SceneBase
     //Scenes
     private PackedScene PlayerScene { get; set; }
     private PackedScene EnemyScene { get; set; }
+    //Nodes
+    private Timer TestTimer { get; set; }
     //Data
     private Random rng = new Random();
     private int EnemyCount { get; set; } = 0;
@@ -20,7 +22,8 @@ public class TestScene01 : SceneBase
         PlayerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Entities/Player.tscn");
         EnemyScene = ResourceLoader.Load<PackedScene>("res://Scenes/Entities/Enemy_Bee.tscn");
 
-        HitscanLayer = GetNode<YSort>("HitscanLayer");
+        HitscanLayer = GetNode<YSort>("FriendlyProjectiles");
+        TestTimer = GetNode<Timer>("Timer");
 
         LoadChildAt((KinematicBody2D)PlayerScene.Instance(), new Vector2(600, 400));
     }
@@ -28,8 +31,6 @@ public class TestScene01 : SceneBase
     public override void _Process(float delta)
     {
         base._Process(delta);
-
-        GetNode<Label>("TestLabel").Text = $"Enemies in scene: {EnemyCount}";
     }
 
     //Code for spawning enemy at a testing nodes

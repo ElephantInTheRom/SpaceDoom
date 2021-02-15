@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="Node" type="Node"]
+
+[node name="LaserGunTimer" type="Timer" parent="."]
+
+[node name="LaserBeamTimer" type="Timer" parent="."]
+
+[node name="GrenadeTimer" type="Timer" parent="."]
+
+[node name="PulsarTimer" type="Timer" parent="."]
+
+[node name="CrossbowTimer" type="Timer" parent="."]
+
+[node name="FlamethrowerTimer" type="Timer" parent="."]
+
+[node name="ShotgunTimer" type="Timer" parent="."]

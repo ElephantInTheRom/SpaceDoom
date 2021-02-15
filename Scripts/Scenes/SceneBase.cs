@@ -27,9 +27,10 @@ namespace SpaceDoom.Scenes
             GetTree().ChangeScene(path);
         }
 
-        protected void LoadChildAt(Node2D child, Vector2 position)
+        protected void LoadChildAt(Node2D child, Vector2 position, Node parent = null)
         {
-            AddChild(child);
+            parent = parent == null ? this : parent;
+            parent.AddChild(child);
             child.Position = position;
         }
     }

@@ -13,6 +13,7 @@ namespace SpaceDoom.Systems.Combat
         public string Name { get; protected set; }
         public int Damage { get; protected set; }
         public DamageEffect Effect { get; protected set; }
+        public float CooldownTime { get; protected set; }
 
         protected PackedScene ProjectileScene { get; set; }
         protected YSort ProjectileLayer { get; set; }
