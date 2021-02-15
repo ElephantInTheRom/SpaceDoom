@@ -19,7 +19,7 @@ public class TestScene01 : SceneBase
     {
         base._Ready();
 
-        PlayerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Entities/Player.tscn");
+        PlayerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Player/Player.tscn");
         EnemyScene = ResourceLoader.Load<PackedScene>("res://Scenes/Entities/Enemy_Bee.tscn");
 
         HitscanLayer = GetNode<YSort>("FriendlyProjectiles");

@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Graphics/Animations/ShipAnimation.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
+[ext_resource path="res://Graphics/Animations/ShipAnimation.tres" type="SpriteFrames" id=2]
 
 [node name="Player" type="KinematicBody2D"]
 z_index = 1
 collision_mask = 7
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 Speed = 300
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
-frames = ExtResource( 1 )
+frames = ExtResource( 2 )
 animation = "idle"
 playing = true
 
