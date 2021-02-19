@@ -13,7 +13,12 @@ public class PlayerWeaponManager : Node
     public List<Weapon> EquippedWeapons { get; private set; }
     public Weapon SelectedWeapon { get; private set; }
 
-    public PlayerWeaponManager(YSort hitLayer, YSort projLayer)
+    public override void _Ready()
+    {
+        base._Ready();
+    }
+
+    public void SetLayers(YSort hitLayer, YSort projLayer)
     {
         //For testing we will start this list off will all weapons
         EquippedWeapons = new List<Weapon>()
@@ -26,15 +31,28 @@ public class PlayerWeaponManager : Node
             new Grenade(projLayer, GetNode<Timer>("GrenadeTimer")),
             new Pulsar(projLayer, GetNode<Timer>("PulsarTimer"))
         };
+
+        SelectedWeapon = EquippedWeapons[0];
     }
 
     //Methods for sorting and selecting a specified weapon
-    public Weapon SelectWeapon(WeaponID weaponId)
+    public void EquipWeapon(WeaponID weaponId) => SelectedWeapon = GrabWeapon(weaponId);
+
+    public Weapon GrabWeapon(WeaponID weaponId)
     {
         return (Weapon)from wpn in EquippedWeapons
-               where wpn.ID == weaponId
-               select wpn;
+                       where wpn.ID == weaponId
+                       select wpn;
     }
 
+    public int GetWeaponIndex(WeaponID weaponId) => EquippedWeapons.IndexOf(GrabWeapon(weaponId));
+
     //Timer signals to call reload delegates
+    public void Lsrguntimeout() => GrabWeapon(WeaponID.pl_lsrgun).Reload();
+    public void Lsrbeamtimeout() => GrabWeapon(WeaponID.pl_lsrbeam).Reload();
+    public void Grenadetimeout() => GrabWeapon(WeaponID.pl_grenade).Reload();
+    public void Pulsartimeout() => GrabWeapon(WeaponID.pl_pulsar).Reload();
+    public void Crossbowtimeout() => GrabWeapon(WeaponID.pl_crossbow).Reload();
+    public void Flamethrowertimeout() => GrabWeapon(WeaponID.pl_flamethrower).Reload();
+    public void Shotguntimeout() => GrabWeapon(WeaponID.pl_shotgun).Reload();
 }

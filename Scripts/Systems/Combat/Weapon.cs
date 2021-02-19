@@ -1,4 +1,5 @@
 using Godot;
+using static Godot.GD;
 using System;
 
 using SpaceDoom.Library.Abstract;
@@ -56,6 +57,7 @@ namespace SpaceDoom.Systems.Combat
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
             CooldownTimer.Start(CooldownTime);
+            Print($"Projectile fired! Name:{Name}");
         }
     }
 }

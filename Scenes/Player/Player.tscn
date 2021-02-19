@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Graphics/Animations/ShipAnimation.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://Scripts/Player/PlayerWeaponManager.cs" type="Script" id=3]
 
 [node name="Player" type="KinematicBody2D"]
 z_index = 1
@@ -45,3 +46,34 @@ __meta__ = {
 }
 
 [node name="HitscanLayer" type="YSort" parent="."]
+
+[node name="WeaponManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="LaserGunTimer" type="Timer" parent="WeaponManager"]
+one_shot = true
+
+[node name="LaserBeamTimer" type="Timer" parent="WeaponManager"]
+one_shot = true
+
+[node name="GrenadeTimer" type="Timer" parent="WeaponManager"]
+one_shot = true
+
+[node name="PulsarTimer" type="Timer" parent="WeaponManager"]
+one_shot = true
+
+[node name="CrossbowTimer" type="Timer" parent="WeaponManager"]
+one_shot = true
+
+[node name="FlamethrowerTimer" type="Timer" parent="WeaponManager"]
+one_shot = true
+
+[node name="ShotgunTimer" type="Timer" parent="WeaponManager"]
+one_shot = true
+[connection signal="timeout" from="WeaponManager/LaserGunTimer" to="WeaponManager" method="Lsrguntimeout"]
+[connection signal="timeout" from="WeaponManager/LaserBeamTimer" to="WeaponManager" method="Lsrbeamtimeout"]
+[connection signal="timeout" from="WeaponManager/GrenadeTimer" to="WeaponManager" method="Grenadetimeout"]
+[connection signal="timeout" from="WeaponManager/PulsarTimer" to="WeaponManager" method="Pulsartimeout"]
+[connection signal="timeout" from="WeaponManager/CrossbowTimer" to="WeaponManager" method="Crossbowtimeout"]
+[connection signal="timeout" from="WeaponManager/FlamethrowerTimer" to="WeaponManager" method="Flamethrowertimeout"]
+[connection signal="timeout" from="WeaponManager/ShotgunTimer" to="WeaponManager" method="Shotguntimeout"]

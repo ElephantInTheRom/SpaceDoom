@@ -16,6 +16,7 @@ public class Player : KinematicBody2D, IAttacker
 
     //Scripts
     private AnimationController AnimationController { get; set; }
+    public PlayerWeaponManager WeaponManager { get; private set; }
     
     //Events
 
@@ -29,17 +30,18 @@ public class Player : KinematicBody2D, IAttacker
     public override void _Ready()
     {
         base._Ready();
+
         //Initialize general data
         CurrentSceneBase = GetNode<SceneBase>("/root/Main");
         ProjectileLayer = CurrentSceneBase.GetNode<YSort>("FriendlyProjectiles");
         Sprite = GetNode<AnimatedSprite>("Sprite");
         HitScanRaycast = GetNode<RayCast2D>("HitScanCast");
         TestLabel = GetNode<Label>("Label");
-
+        //Controllers
         AnimationController = new AnimationController(Sprite);
-        //Initialize Combat and targeting
-        SelectedWeapon = new Grenade(ProjectileLayer);
-        //SelectedWeapon = new LaserGun(ProjectileLayer);
+        WeaponManager = GetNode<PlayerWeaponManager>("WeaponManager");
+        WeaponManager.SetLayers(ProjectileLayer, ProjectileLayer);
+
         //Initialize Movement
         DirectionsThisFrame = new DirectionQueue();
     }
@@ -62,13 +64,15 @@ public class Player : KinematicBody2D, IAttacker
 
     // - - - Combat and targeting - - - \\
     public List<Weapon> EquippedWeapons { get; protected set; }
-    private Weapon SelectedWeapon { get; set; }
     public RayCast2D HitScanRaycast { get; set; }
 
     //Returned from the damageable entity if it was sucessfully hit
     private void FireWeapon()
     {
-        SelectedWeapon.FireWeapon(this, GetViewport().GetMousePosition());
+        if (WeaponManager.SelectedWeapon.Loaded) 
+        {
+            WeaponManager.SelectedWeapon.FireWeapon(this, GetViewport().GetMousePosition());
+        }
     }
 
     //Returned to this class when a damage event was successful
