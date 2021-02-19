@@ -8,3 +8,13 @@ C:\Users\hayde\Documents\Godot\SpaceDoom\.mono\temp\bin\Debug\Newtonsoft.Json.dl
 C:\Users\hayde\Documents\Godot\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.csproj.CopyComplete
 C:\Users\hayde\Documents\Godot\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.dll
 C:\Users\hayde\Documents\Godot\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.pdb
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\bin\Debug\SpaceDoom.dll
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\bin\Debug\SpaceDoom.pdb
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.csprojAssemblyReference.cache
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.AssemblyInfoInputs.cache
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.AssemblyInfo.cs
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.csproj.CoreCompileInputs.cache
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.csproj.CopyComplete
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.dll
+C:\Users\hayde\Documents\Godot\Projects\SpaceDoom\.mono\temp\obj\Debug\SpaceDoom.pdb

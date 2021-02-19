@@ -17,14 +17,19 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "laserbeam",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "grenadelauncher",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "shotgun",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "pulsar",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -39,17 +44,12 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
-"name": "shotgun",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "napalm",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "pulsar",
+"name": "laserbeam",
 "speed": 5.0
 } ]
 
@@ -72,7 +72,7 @@ margin_bottom = 720.0
 custom_fonts/bold_font = SubResource( 1 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "0: [u][color=green]Laser Gun[/color][/u]
+bbcode_text = "0: [b][color=green]Laser Gun[/color][b]
 1: Laser Beam
 2: Grenade
 3: Pulsar
