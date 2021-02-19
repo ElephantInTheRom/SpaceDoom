@@ -6,15 +6,29 @@
 script = ExtResource( 1 )
 
 [node name="LaserGunTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="LaserBeamTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="GrenadeTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="PulsarTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="CrossbowTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="FlamethrowerTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="ShotgunTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="LaserGunTimer" to="." method="Lsrguntimeout"]
+[connection signal="timeout" from="LaserBeamTimer" to="." method="Lsrbeamtimeout"]
+[connection signal="timeout" from="GrenadeTimer" to="." method="Grenadetimeout"]
+[connection signal="timeout" from="PulsarTimer" to="." method="Pulsartimeout"]
+[connection signal="timeout" from="CrossbowTimer" to="." method="Crossbowtimeout"]
+[connection signal="timeout" from="FlamethrowerTimer" to="." method="Flamethrowertimeout"]
+[connection signal="timeout" from="ShotgunTimer" to="." method="Shotguntimeout"]

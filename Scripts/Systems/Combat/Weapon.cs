@@ -11,15 +11,22 @@ namespace SpaceDoom.Systems.Combat
     {
         //Data
         public string Name { get; protected set; }
+        public WeaponID ID { get; protected set; }
         public int Damage { get; protected set; }
         public DamageEffect Effect { get; protected set; }
+
+        public Timer CooldownTimer { get; protected set; }
         public float CooldownTime { get; protected set; }
+        public bool Loaded { get; set; }
 
         protected PackedScene ProjectileScene { get; set; }
         protected YSort ProjectileLayer { get; set; }
         protected int Range { get; set; }
 
         public abstract void FireWeapon(IAttacker attacker, Vector2 target);
+
+        //Delegate for telling the weapon it is loaded again, called from a weapon manager
+        public void Reload() { Loaded = true; }
     }
 
     public abstract class HitscanWeapon : Weapon
@@ -29,6 +36,7 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
+            CooldownTimer.Start(CooldownTime);
             attacker.HitScanRaycast.CastTo = new Vector2(0, (Range == 0 ? 9999 : Range)); //Set the cast shape
             Godot.Object collision = attacker.HitScanRaycast.GetCollider(); //Grab the collision
             if (collision == null) { return; } //Exit the method if there is no hit
@@ -47,7 +55,7 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
-            throw new NotImplementedException();
+            CooldownTimer.Start(CooldownTime);
         }
     }
 }
