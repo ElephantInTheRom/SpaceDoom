@@ -16,6 +16,7 @@ namespace SpaceDoom.Systems.Combat
             Damage = 5;
             Effect = new BluntDamageEffect();
             CooldownTimer = cooldownTimer;
+            CooldownTime = 0.1f;
 
             DecalLayer = projLayer;
             ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laser01.tscn");
@@ -42,6 +43,7 @@ namespace SpaceDoom.Systems.Combat
             ID = WeaponID.pl_lsrbeam;
             Damage = 10;
             CooldownTimer = cooldownTimer;
+            CooldownTime = 5;
         }
     }
 
@@ -56,6 +58,7 @@ namespace SpaceDoom.Systems.Combat
             ID = WeaponID.pl_shotgun;
             Damage = 4; //This is per shotgun PELLET
             CooldownTimer = cooldownTimer;
+            CooldownTime = 2;
         }
     }
 
@@ -68,6 +71,7 @@ namespace SpaceDoom.Systems.Combat
             ID = WeaponID.pl_crossbow;
             Damage = 100;
             CooldownTimer = cooldownTimer;
+            CooldownTime = 5;
         }
     }
 
@@ -81,6 +85,7 @@ namespace SpaceDoom.Systems.Combat
             Damage = 3;
             ProjectileTime = 1.5f;
             CooldownTimer = cooldownTimer;
+            CooldownTime = 10;
         }
     }
 
@@ -96,12 +101,14 @@ namespace SpaceDoom.Systems.Combat
             Effect = new ExplosionDamageEffect();
             ProjectileTime = 3f;
             CooldownTimer = cooldownTimer;
+            CooldownTime = 2;
             ProjectileLayer = projLayer;
             ProjectileScene = GD.Load<PackedScene>("res://Scenes/Projectiles/Grenade01.tscn");
         }
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
+            base.FireWeapon(attacker, target);
             //Create a new projectile and pass this data onto its script
             var pInst = ProjectileScene.Instance();
             var pScript = pInst as GrenadeProjectile;
@@ -120,6 +127,7 @@ namespace SpaceDoom.Systems.Combat
             Damage = 0;
             ProjectileTime = 100f;
             CooldownTimer = cooldownTimer;
+            CooldownTime = 4;
         }
     }
 }

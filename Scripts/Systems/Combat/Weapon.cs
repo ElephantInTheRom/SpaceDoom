@@ -11,20 +11,24 @@ namespace SpaceDoom.Systems.Combat
     public abstract class Weapon
     {
         //Data
-        public string Name { get; protected set; }
+        public string Name { get; protected set; } //Name must match up with its action in the input map
         public WeaponID ID { get; protected set; }
         public int Damage { get; protected set; }
         public DamageEffect Effect { get; protected set; }
 
         public Timer CooldownTimer { get; protected set; }
         public float CooldownTime { get; protected set; }
-        public bool Loaded { get; set; }
+        public bool Loaded { get; set; } = true;
 
         protected PackedScene ProjectileScene { get; set; }
         protected YSort ProjectileLayer { get; set; }
         protected int Range { get; set; }
 
-        public abstract void FireWeapon(IAttacker attacker, Vector2 target);
+        public virtual void FireWeapon(IAttacker attacker, Vector2 target) 
+        {
+            Loaded = false;
+            CooldownTimer.Start(CooldownTime);
+        }
 
         //Delegate for telling the weapon it is loaded again, called from a weapon manager
         public void Reload() { Loaded = true; }
@@ -37,7 +41,8 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
-            CooldownTimer.Start(CooldownTime);
+            base.FireWeapon(attacker, target);
+
             attacker.HitScanRaycast.CastTo = new Vector2(0, (Range == 0 ? 9999 : Range)); //Set the cast shape
             Godot.Object collision = attacker.HitScanRaycast.GetCollider(); //Grab the collision
             if (collision == null) { return; } //Exit the method if there is no hit
@@ -56,7 +61,8 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
-            CooldownTimer.Start(CooldownTime);
+            base.FireWeapon(attacker, target);
+
             Print($"Projectile fired! Name:{Name}");
         }
     }

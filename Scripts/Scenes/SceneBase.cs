@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static PlayerSingleton;
 
 namespace SpaceDoom.Scenes
 {
@@ -9,21 +10,32 @@ namespace SpaceDoom.Scenes
         //Scenes
         protected PackedScene DialogGUIScene { get; set; }
 
-        //Scripts
-        protected Player _player { get; set; }
+        //Data 
+        public bool PlayerLoaded { get; protected set; } = false;
 
         //Common nodes (Scene with gameplay needs to have these)
         public YSort HitscanLayer { get; protected set; }
 
-        //Ready method (this means that all method that inherit this one need to call base._Ready()!
+        //Ready method
         public override void _Ready()
         {
             base._Ready();
         }
 
+        //Load player into scene
+        protected void LoadPlayer(Vector2 position, Node parent = null, int zIndex = 1)
+        {
+            if (parent == null) { parent = this; }
+            parent.AddChild(PlayerInstance);
+            PlayerScript.Position = position;
+            PlayerScript.ZIndex = zIndex;
+            PlayerLoaded = true;
+        }
+
         //Default bevahior for unloading a scene but keeping the player instance safe
         public virtual void SwitchScene(string path)
         {
+            RemoveChild(PlayerInstance);
             GetTree().ChangeScene(path);
         }
 

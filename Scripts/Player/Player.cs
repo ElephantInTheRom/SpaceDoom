@@ -1,4 +1,5 @@
 using Godot;
+using static Godot.GD;
 using System;
 using System.Collections.Generic;
 
@@ -50,7 +51,7 @@ public class Player : KinematicBody2D, IAttacker
     {
         base._Process(delta);
 
-        ProcessInput(delta); //Check for all inputs in the given frame
+        //ProcessInput(delta); //Check for all inputs in the given frame
 
         RotateToLookAt(GetLocalMousePosition()); //Force the ship to face towards the mouse cursor
     }
@@ -60,6 +61,24 @@ public class Player : KinematicBody2D, IAttacker
         base._PhysicsProcess(delta);
 
         ProcessMovement(delta);
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+        //Inputs that do not need to be checked every frame can be put here to save on performance
+        if (Input.IsActionJustPressed("mouse_left")) { FireWeapon(); }
+        if (Input.IsActionJustPressed("mouse_right")) { }
+        if (Input.IsActionJustPressed("space")) { }
+        if (Input.IsActionJustPressed("interact")) { }
+        //Weapon hot keys
+        if (Input.IsActionJustPressed("LaserGun")) { WeaponManager.EquipWeapon(WeaponID.pl_lsrgun); }
+        if (Input.IsActionJustPressed("LaserBeam")) { WeaponManager.EquipWeapon(WeaponID.pl_lsrbeam); }
+        if (Input.IsActionJustPressed("Grenade")) { WeaponManager.EquipWeapon(WeaponID.pl_grenade); }
+        if (Input.IsActionJustPressed("Pulsar")) { WeaponManager.EquipWeapon(WeaponID.pl_pulsar); }
+        if (Input.IsActionJustPressed("Crossbow")) { WeaponManager.EquipWeapon(WeaponID.pl_crossbow); }
+        if (Input.IsActionJustPressed("Flamethrower")) { WeaponManager.EquipWeapon(WeaponID.pl_flamethrower); }
+        if (Input.IsActionJustPressed("Shotgun")) { WeaponManager.EquipWeapon(WeaponID.pl_shotgun); }
     }
 
     // - - - Combat and targeting - - - \\
@@ -95,14 +114,6 @@ public class Player : KinematicBody2D, IAttacker
     private bool FrameMoving { get; set; } = false; //Are we moving in the current frame?
     private Direction FrameDirection { get; set; } //Which direction are we facing in the current frame?
     private DirectionQueue DirectionsThisFrame { get; set; }
-
-    private void ProcessInput(float delta)
-    {
-        if (Input.IsActionJustPressed("mouse_left")) { FireWeapon(); }
-        if (Input.IsActionJustPressed("mouse_right")) { }
-        if (Input.IsActionJustPressed("space")) { }
-        if (Input.IsActionJustPressed("interact")) { }
-    }
 
     private void ProcessMovement(float delta)
     {

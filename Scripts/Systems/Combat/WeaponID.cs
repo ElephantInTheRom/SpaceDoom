@@ -19,4 +19,13 @@ namespace SpaceDoom.Systems.Combat
         pl_grenade,
         pl_pulsar
     }
+
+    //Enums for the weapon state machine
+    public enum WeaponState
+    {
+        ready,
+        reloading,
+        firing,
+        disabled
+    }
 }

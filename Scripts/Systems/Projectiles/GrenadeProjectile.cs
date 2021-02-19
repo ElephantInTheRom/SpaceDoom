@@ -54,7 +54,7 @@ public class GrenadeProjectile : RigidBody2D
     // - - - Behaviors - - - 
     private void Push()
     {
-        AppliedForce = Velocity * 50;
+        AppliedForce = Velocity * 500;
     }
 
     private void Detonate()

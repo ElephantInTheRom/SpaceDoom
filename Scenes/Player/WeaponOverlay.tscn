@@ -1,29 +1,30 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Aesprite/LaserGun01.png" type="Texture" id=1]
-[ext_resource path="res://Aesprite/GrenadeLauncher01.png" type="Texture" id=2]
-[ext_resource path="res://Fonts/montserrat/Montserrat-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Fonts/montserrat/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/Player/WeaponOverlay.cs" type="Script" id=2]
+[ext_resource path="res://Aesprite/LaserGun01.png" type="Texture" id=3]
+[ext_resource path="res://Aesprite/GrenadeLauncher01.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 3 )
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 25
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 3 )
+font_data = ExtResource( 1 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "grenadelauncher",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
-"name": "pulsar",
+"name": "laserbeam",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "grenadelauncher",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -31,7 +32,7 @@ animations = [ {
 "name": "crossbow",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "lasergun",
 "speed": 5.0
@@ -43,18 +44,19 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
-"name": "laserbeam",
+"name": "napalm",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "napalm",
+"name": "pulsar",
 "speed": 5.0
 } ]
 
 [node name="TestWeaponUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -70,7 +72,7 @@ margin_bottom = 720.0
 custom_fonts/bold_font = SubResource( 1 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "0: [color=green]Laser Gun[/color]
+bbcode_text = "0: [u][color=green]Laser Gun[/color][/u]
 1: Laser Beam
 2: Grenade
 3: Pulsar

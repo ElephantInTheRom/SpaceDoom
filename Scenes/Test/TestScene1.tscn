@@ -31,7 +31,6 @@ position = Vector2( 840, 72 )
 position = Vector2( 1168, 152 )
 
 [node name="EnemySpawnTimer" type="Timer" parent="EnemySpawnPositons"]
-wait_time = 2.0
 autostart = true
 
 [node name="BackgroundObjects" type="CanvasLayer" parent="."]

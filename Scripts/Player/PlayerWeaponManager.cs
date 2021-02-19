@@ -12,6 +12,8 @@ public class PlayerWeaponManager : Node
     //Weapon Collections
     public List<Weapon> EquippedWeapons { get; private set; }
     public Weapon SelectedWeapon { get; private set; }
+    //Actions
+    public event Action SelectionChanged;
 
     public override void _Ready()
     {
@@ -32,17 +34,22 @@ public class PlayerWeaponManager : Node
             new Pulsar(projLayer, GetNode<Timer>("PulsarTimer"))
         };
 
-        SelectedWeapon = EquippedWeapons[0];
+        EquipWeapon(WeaponID.pl_lsrgun);
     }
 
     //Methods for sorting and selecting a specified weapon
-    public void EquipWeapon(WeaponID weaponId) => SelectedWeapon = GrabWeapon(weaponId);
+    public void EquipWeapon(WeaponID weaponId)
+    {
+        SelectedWeapon = GrabWeapon(weaponId);
+        if (SelectionChanged != null) { SelectionChanged(); }
+    }
 
     public Weapon GrabWeapon(WeaponID weaponId)
     {
-        return (Weapon)from wpn in EquippedWeapons
-                       where wpn.ID == weaponId
-                       select wpn;
+        var q = from wpn in EquippedWeapons
+                where wpn.ID == weaponId
+                select wpn;
+        return q.FirstOrDefault();
     }
 
     public int GetWeaponIndex(WeaponID weaponId) => EquippedWeapons.IndexOf(GrabWeapon(weaponId));

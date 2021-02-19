@@ -7,7 +7,7 @@ using SpaceDoom.Library.Abstract;
 public class TestScene01 : SceneBase
 {
     //Scenes
-    private PackedScene PlayerScene { get; set; }
+    private PackedScene GUIScene { get; set; }
     private PackedScene EnemyScene { get; set; }
     //Nodes
     private Timer TestTimer { get; set; }
@@ -19,19 +19,19 @@ public class TestScene01 : SceneBase
     {
         base._Ready();
 
-        PlayerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Player/Player.tscn");
         EnemyScene = ResourceLoader.Load<PackedScene>("res://Scenes/Entities/Enemy_Bee.tscn");
+        GUIScene = ResourceLoader.Load<PackedScene>("res://Scenes/Player/WeaponOverlay.tscn");
 
         HitscanLayer = GetNode<YSort>("FriendlyProjectiles");
         TestTimer = GetNode<Timer>("Timer");
 
-        LoadChildAt((KinematicBody2D)PlayerScene.Instance(), new Vector2(600, 400));
+        LoadPlayer(new Vector2(600, 400));
+
+        //Load GUI
+        AddChild(GUIScene.Instance());
     }
 
-    public override void _Process(float delta)
-    {
-        base._Process(delta);
-    }
+    
 
     //Code for spawning enemy at a testing nodes
     public void EnemyTimeout()
