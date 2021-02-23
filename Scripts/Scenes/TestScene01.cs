@@ -44,7 +44,7 @@ public class TestScene01 : SceneBase
     private void SpawnEnemy()
     {
         Node2D spawner = GetNode<Node2D>($"EnemySpawnPositons/node{rng.Next(1,5)}");
-        Vector2 offset = new Vector2(rng.Next(-100, 100), rng.Next(-100, 100));
+        Vector2 offset = new Vector2(rng.Next(-100, 100), rng.Next(0, 100));
         var eInst = EnemyScene.Instance();
         var eScript = eInst as Enemy;
         eScript.EnemyDied += EnemyDown;

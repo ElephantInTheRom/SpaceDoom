@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using SpaceDoom.Library.Extensions;
+using SpaceDoom.Library.Abstract;
 
 public class HitscanBeam : TextureRect
 {

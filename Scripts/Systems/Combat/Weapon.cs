@@ -42,16 +42,6 @@ namespace SpaceDoom.Systems.Combat
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
             base.FireWeapon(attacker, target);
-
-            attacker.HitScanRaycast.CastTo = new Vector2(0, (Range == 0 ? 9999 : Range)); //Set the cast shape
-            Godot.Object collision = attacker.HitScanRaycast.GetCollider(); //Grab the collision
-            if (collision == null) { return; } //Exit the method if there is no hit
-            //If there is a hit
-            if (collision is IDamageable)
-            {
-                IDamageable entityHit = (IDamageable)collision;
-                entityHit.ProcessCombatEvent(new CombatEvent(this, attacker));
-            }
         }
     }
 

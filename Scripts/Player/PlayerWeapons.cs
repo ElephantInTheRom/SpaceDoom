@@ -2,6 +2,7 @@
 
 using Godot;
 using SpaceDoom.Library.Abstract;
+using SpaceDoom.Library.Extensions;
 using SpaceDoom.Scenes;
 
 namespace SpaceDoom.Systems.Combat
@@ -30,6 +31,17 @@ namespace SpaceDoom.Systems.Combat
             instScript.SetDirection(attacker.Position, target);
             DecalLayer.AddChild(pInst);
 
+            //Then send out the raycast for the laser MOVE THIS TO AN EXTENSION METHOD
+            attacker.HitScanRaycast.CastTo = new Vector2(0, (Range == 0 ? 9999 : Range)); //Set the cast shape
+            Godot.Object collision = attacker.HitScanRaycast.GetCollider(); //Grab the collision
+            if (collision == null) { return; } //Exit the method if there is no hit
+            //If there is a hit
+            if (collision is IDamageable)
+            {
+                IDamageable entityHit = (IDamageable)collision;
+                entityHit.ProcessCombatEvent(new CombatEvent(this, attacker));
+            }
+
             base.FireWeapon(attacker, target);
         }
     }
@@ -43,7 +55,7 @@ namespace SpaceDoom.Systems.Combat
             ID = WeaponID.pl_lsrbeam;
             Damage = 10;
             CooldownTimer = cooldownTimer;
-            CooldownTime = 1;
+            CooldownTime = 4;
 
             DecalLayer = projLayer;
             ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laserbeam01.tscn");
@@ -56,6 +68,16 @@ namespace SpaceDoom.Systems.Combat
             HitscanBeam instScript = pInst as HitscanBeam;
             instScript.SetDirection(attacker.Position, target);
             DecalLayer.AddChild(pInst);
+            
+            
+            if (raycastResults != null)
+            {
+                foreach (var col in raycastResults)
+                {
+                    var damageable = col;
+                    damageable.ProcessCombatEvent(new CombatEvent(this, attacker));
+                }
+            }
 
             base.FireWeapon(attacker, target);
         }
