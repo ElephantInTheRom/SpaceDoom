@@ -18,10 +18,6 @@ _global_script_class_icons={
 config/name="SpaceDoom"
 config/icon="res://icon.png"
 
-[autoload]
-
-PlayerSingleton="*res://Scripts/Player/PlayerSingleton.cs"
-
 [display]
 
 window/size/width=1280

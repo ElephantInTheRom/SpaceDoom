@@ -51,8 +51,6 @@ public class Player : KinematicBody2D, IAttacker
     {
         base._Process(delta);
 
-        //ProcessInput(delta); //Check for all inputs in the given frame
-
         RotateToLookAt(GetLocalMousePosition()); //Force the ship to face towards the mouse cursor
     }
 

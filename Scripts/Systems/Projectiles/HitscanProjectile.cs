@@ -1,12 +1,13 @@
 using Godot;
 using System;
+using SpaceDoom.Library.Extensions;
 
 public class HitscanProjectile : AnimatedSprite
 {
     //Hitscan projectiles need to travel along a given vector quickly and dissapear after its timer runs out
 
     //Data
-    private float Speed { get; set; } = 3500;
+    private float Speed { get; set; } = 4500;
     private Vector2 Velocity { get; set; }
 
     //Because this sprites rotation is offset by -90 degrees we correct it here
@@ -16,7 +17,10 @@ public class HitscanProjectile : AnimatedSprite
         if (!Velocity.IsNormalized()) { Velocity = Velocity.Normalized(); }
 
         Position = start;
-        RotationDegrees = target.Angle();
+        //Set rotation
+        var relTarget = target.RelativeTo(start);
+        var theta = Math.Atan2(relTarget.y, relTarget.x) * (180 / Math.PI);
+        RotationDegrees = (float)theta + 90; //We have to add 90 to this angle because the laser is offset incorrectly
     }
 
     public override void _Process(float delta)

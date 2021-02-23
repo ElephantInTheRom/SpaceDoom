@@ -43,7 +43,21 @@ namespace SpaceDoom.Systems.Combat
             ID = WeaponID.pl_lsrbeam;
             Damage = 10;
             CooldownTimer = cooldownTimer;
-            CooldownTime = 5;
+            CooldownTime = 1;
+
+            DecalLayer = projLayer;
+            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laserbeam01.tscn");
+        }
+
+        public override void FireWeapon(IAttacker attacker, Vector2 target)
+        {
+            //Instanse the scene, grab its script, set its data, and create it.
+            var pInst = ProjectileScene.Instance();
+            HitscanBeam instScript = pInst as HitscanBeam;
+            instScript.SetDirection(attacker.Position, target);
+            DecalLayer.AddChild(pInst);
+
+            base.FireWeapon(attacker, target);
         }
     }
 
