@@ -32,8 +32,8 @@ namespace SpaceDoom.Systems.Combat
             DecalLayer.AddChild(pInst);
 
             //Then send out the raycast for the laser MOVE THIS TO AN EXTENSION METHOD
-            attacker.HitScanRaycast.CastTo = new Vector2(0, (Range == 0 ? 9999 : Range)); //Set the cast shape
-            Godot.Object collision = attacker.HitScanRaycast.GetCollider(); //Grab the collision
+            attacker.HitscanRaycast.CastTo = new Vector2(0, (Range == 0 ? 9999 : Range)); //Set the cast shape
+            Godot.Object collision = attacker.HitscanRaycast.GetCollider(); //Grab the collision
             if (collision == null) { return; } //Exit the method if there is no hit
             //If there is a hit
             if (collision is IDamageable)
@@ -55,7 +55,7 @@ namespace SpaceDoom.Systems.Combat
             ID = WeaponID.pl_lsrbeam;
             Damage = 10;
             CooldownTimer = cooldownTimer;
-            CooldownTime = 4;
+            CooldownTime = 1;
 
             DecalLayer = projLayer;
             ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laserbeam01.tscn");
@@ -63,22 +63,16 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
-            //Instanse the scene, grab its script, set its data, and create it.
-            var pInst = ProjectileScene.Instance();
-            HitscanBeam instScript = pInst as HitscanBeam;
-            instScript.SetDirection(attacker.Position, target);
-            DecalLayer.AddChild(pInst);
-            
-            
-            if (raycastResults != null)
-            {
-                foreach (var col in raycastResults)
-                {
-                    var damageable = col;
-                    damageable.ProcessCombatEvent(new CombatEvent(this, attacker));
-                }
-            }
+            var pInst = ProjectileScene.Instance(); // Instance the scene
+            HitscanBeam instScript = pInst as HitscanBeam; // Get the script
+            DecalLayer.AddChild(pInst); // Add it to the scene
+            var collisons = instScript.GetColliders(attacker.Position, target); // Grab its collisons
 
+            if (collisons != null)
+            {
+                foreach (var damageable in collisons) { damageable.ProcessCombatEvent(new CombatEvent(this, attacker)); }
+            }
+            
             base.FireWeapon(attacker, target);
         }
     }

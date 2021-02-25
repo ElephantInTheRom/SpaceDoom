@@ -22,7 +22,7 @@ namespace SpaceDoom.Library.Abstract
     {
         void ProcessCombatReply(CombatReply comReply);
 
-        RayCast2D HitScanRaycast { get; set; }
+        RayCast2D HitscanRaycast { get; set; }
         Vector2 Position { get; set; }
     }
 }

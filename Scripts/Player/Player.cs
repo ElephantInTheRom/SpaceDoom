@@ -36,7 +36,7 @@ public class Player : KinematicBody2D, IAttacker
         CurrentSceneBase = GetNode<SceneBase>("/root/Main");
         ProjectileLayer = CurrentSceneBase.GetNode<YSort>("FriendlyProjectiles");
         Sprite = GetNode<AnimatedSprite>("Sprite");
-        HitScanRaycast = GetNode<RayCast2D>("HitScanCast");
+        HitscanRaycast = GetNode<RayCast2D>("HitscanCast");
         TestLabel = GetNode<Label>("Label");
         //Controllers
         AnimationController = new AnimationController(Sprite);
@@ -81,7 +81,8 @@ public class Player : KinematicBody2D, IAttacker
 
     // - - - Combat and targeting - - - \\
     public List<Weapon> EquippedWeapons { get; protected set; }
-    public RayCast2D HitScanRaycast { get; set; }
+    public RayCast2D HitscanRaycast { get; private set; }
+    public HitscanBeam HitscanBeamcast { get; private set; }
 
     //Returned from the damageable entity if it was sucessfully hit
     private void FireWeapon()

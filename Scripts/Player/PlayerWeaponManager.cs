@@ -26,7 +26,7 @@ public class PlayerWeaponManager : Node
         EquippedWeapons = new List<Weapon>()
         {
             new LaserGun(hitLayer, GetNode<Timer>("LaserGunTimer")),
-            new LaserBeam(hitLayer, GetNode<Timer>("LaserBeamTimer")),
+            new SpaceDoom.Systems.Combat.LaserBeam(hitLayer, GetNode<Timer>("LaserBeamTimer")),
             new Shotgun(hitLayer, GetNode<Timer>("ShotgunTimer")),
             new Crossbow(hitLayer, GetNode<Timer>("CrossbowTimer")),
             new Flamethrower(hitLayer, GetNode<Timer>("FlamethrowerTimer")),

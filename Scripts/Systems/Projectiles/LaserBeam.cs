@@ -1,13 +1,16 @@
 using Godot;
+using static Godot.GD;
 using System;
 using System.Collections.Generic;
 using SpaceDoom.Library.Extensions;
 using SpaceDoom.Library.Abstract;
 
-public class HitscanBeam : TextureRect
+public class LaserBeam : TextureRect
 {
     //Beam projectiles need to appear along a vector and then slowly fade out
     //hitscan damage will be held in script by the weapon that fired it.
+
+    //Sets the shape of the beam
     public void SetDirection(Vector2 start, Vector2 target)
     {
         RectPosition = start;
@@ -17,6 +20,7 @@ public class HitscanBeam : TextureRect
         RectRotation = (float)theta;
     }
 
+    //Fades the node out over time
     public override void _Process(float delta)
     {
         base._Process(delta);
