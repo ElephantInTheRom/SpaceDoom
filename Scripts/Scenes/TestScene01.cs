@@ -11,6 +11,7 @@ public class TestScene01 : SceneBase
     private PackedScene EnemyScene { get; set; }
     //Nodes
     private Timer TestTimer { get; set; }
+    private AudioStreamPlayer MusicBackground { get; set; }
     //Data
     private Random rng = new Random();
     private int EnemyCount { get; set; } = 0;
@@ -24,14 +25,18 @@ public class TestScene01 : SceneBase
 
         HitscanLayer = GetNode<YSort>("FriendlyProjectiles");
         TestTimer = GetNode<Timer>("Timer");
+        MusicBackground = GetNode<AudioStreamPlayer>("MusicBackground");
 
         LoadPlayer(new Vector2(600, 400));
 
         //Load GUI
-        AddChild(GUIScene.Instance());
+        GetNode<CanvasLayer>("GUI").AddChild(GUIScene.Instance());
     }
 
-    
+    public void MusicBackgroundOver()
+    {
+        MusicBackground.Play();
+    }
 
     //Code for spawning enemy at a testing nodes
     public void EnemyTimeout()

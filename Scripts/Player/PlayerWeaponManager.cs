@@ -26,12 +26,12 @@ public class PlayerWeaponManager : Node
         EquippedWeapons = new List<Weapon>()
         {
             new LaserGun(hitLayer, GetNode<Timer>("LaserGunTimer")),
-            new SpaceDoom.Systems.Combat.LaserBeam(hitLayer, GetNode<Timer>("LaserBeamTimer")),
-            new Shotgun(hitLayer, GetNode<Timer>("ShotgunTimer")),
+            new LaserBeam(hitLayer, GetNode<Timer>("LaserBeamTimer")),
+            new Grenade(projLayer, GetNode<Timer>("GrenadeTimer")),
+            new Pulsar(projLayer, GetNode<Timer>("PulsarTimer")),
             new Crossbow(hitLayer, GetNode<Timer>("CrossbowTimer")),
             new Flamethrower(hitLayer, GetNode<Timer>("FlamethrowerTimer")),
-            new Grenade(projLayer, GetNode<Timer>("GrenadeTimer")),
-            new Pulsar(projLayer, GetNode<Timer>("PulsarTimer"))
+            new Shotgun(hitLayer, GetNode<Timer>("ShotgunTimer"))
         };
 
         EquipWeapon(WeaponID.pl_lsrgun);
@@ -40,11 +40,11 @@ public class PlayerWeaponManager : Node
     //Methods for sorting and selecting a specified weapon
     public void EquipWeapon(WeaponID weaponId)
     {
-        SelectedWeapon = GrabWeapon(weaponId);
+        SelectedWeapon = GetWeapon(weaponId);
         if (SelectionChanged != null) { SelectionChanged(); }
     }
 
-    public Weapon GrabWeapon(WeaponID weaponId)
+    public Weapon GetWeapon(WeaponID weaponId)
     {
         var q = from wpn in EquippedWeapons
                 where wpn.ID == weaponId
@@ -52,14 +52,14 @@ public class PlayerWeaponManager : Node
         return q.FirstOrDefault();
     }
 
-    public int GetWeaponIndex(WeaponID weaponId) => EquippedWeapons.IndexOf(GrabWeapon(weaponId));
+    public int GetWeaponIndex(WeaponID weaponId) => EquippedWeapons.IndexOf(GetWeapon(weaponId));
 
     //Timer signals to call reload delegates
-    public void Lsrguntimeout() => GrabWeapon(WeaponID.pl_lsrgun).Reload();
-    public void Lsrbeamtimeout() => GrabWeapon(WeaponID.pl_lsrbeam).Reload();
-    public void Grenadetimeout() => GrabWeapon(WeaponID.pl_grenade).Reload();
-    public void Pulsartimeout() => GrabWeapon(WeaponID.pl_pulsar).Reload();
-    public void Crossbowtimeout() => GrabWeapon(WeaponID.pl_crossbow).Reload();
-    public void Flamethrowertimeout() => GrabWeapon(WeaponID.pl_flamethrower).Reload();
-    public void Shotguntimeout() => GrabWeapon(WeaponID.pl_shotgun).Reload();
+    public void Lsrguntimeout() => GetWeapon(WeaponID.pl_lsrgun).Reload();
+    public void Lsrbeamtimeout() => GetWeapon(WeaponID.pl_lsrbeam).Reload();
+    public void Grenadetimeout() => GetWeapon(WeaponID.pl_grenade).Reload();
+    public void Pulsartimeout() => GetWeapon(WeaponID.pl_pulsar).Reload();
+    public void Crossbowtimeout() => GetWeapon(WeaponID.pl_crossbow).Reload();
+    public void Flamethrowertimeout() => GetWeapon(WeaponID.pl_flamethrower).Reload();
+    public void Shotguntimeout() => GetWeapon(WeaponID.pl_shotgun).Reload();
 }

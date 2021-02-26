@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Stamper-BTD_1.ogg-f75fa4b7fadc44b58783fc1d1e966708.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Placeholder/Stamper-BTD_1.ogg"
+dest_files=[ "res://.import/Stamper-BTD_1.ogg-f75fa4b7fadc44b58783fc1d1e966708.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

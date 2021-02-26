@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Childlike.ogg-9ea06cf75d5e27fd6d3eeabf594a2ca4.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Placeholder/Childlike.ogg"
+dest_files=[ "res://.import/Childlike.ogg-9ea06cf75d5e27fd6d3eeabf594a2ca4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

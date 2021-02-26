@@ -24,17 +24,7 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
-"name": "shotgun",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "pulsar",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "crossbow",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
@@ -44,7 +34,17 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
+"name": "crossbow",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
 "name": "napalm",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "shotgun",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -86,6 +86,7 @@ text = "0: Laser Gun
 4: Crossbow
 5: Napalm
 6: Shotgun"
+scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

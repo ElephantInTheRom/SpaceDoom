@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Cybergrind.ogg-561bc9becff861b8f23cd330c863a530.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Placeholder/Cybergrind.ogg"
+dest_files=[ "res://.import/Cybergrind.ogg-561bc9becff861b8f23cd330c863a530.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

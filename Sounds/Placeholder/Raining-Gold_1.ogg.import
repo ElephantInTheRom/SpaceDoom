@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Raining-Gold_1.ogg-d0a8432723d6dbbf50772c469cffdb5d.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Placeholder/Raining-Gold_1.ogg"
+dest_files=[ "res://.import/Raining-Gold_1.ogg-d0a8432723d6dbbf50772c469cffdb5d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

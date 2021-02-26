@@ -45,9 +45,9 @@ public class WeaponOverlay : Control
         foreach(var wpn in RunningWeaponManager.EquippedWeapons)
         {
             if(wpn == RunningWeaponManager.SelectedWeapon)
-                bbcode += $"[u]>[color={ColorMap[WeaponState.ready]}]{wpn.Name}[/color]<[/u]\n";
+                bbcode += $"[u][color={ColorMap[wpn.State]}]>{wpn.Name}[/color][/u]\n";
             else
-                bbcode += $"[color={ColorMap[WeaponState.ready]}]{wpn.Name}[/color]\n";
+                bbcode += $"[color={ColorMap[wpn.State]}]{wpn.Name}[/color]\n";
         }
         return bbcode;
     }

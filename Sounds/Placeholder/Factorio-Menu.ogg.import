@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Factorio-Menu.ogg-fad53bb51382759a4c422142b1fed90d.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Placeholder/Factorio-Menu.ogg"
+dest_files=[ "res://.import/Factorio-Menu.ogg-fad53bb51382759a4c422142b1fed90d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

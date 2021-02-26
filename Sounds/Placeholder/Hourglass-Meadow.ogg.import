@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Hourglass-Meadow.ogg-ba41bb38b3bad52fc355ba70b90d3d55.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Placeholder/Hourglass-Meadow.ogg"
+dest_files=[ "res://.import/Hourglass-Meadow.ogg-ba41bb38b3bad52fc355ba70b90d3d55.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
