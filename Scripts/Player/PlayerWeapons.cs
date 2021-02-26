@@ -46,38 +46,7 @@ namespace SpaceDoom.Systems.Combat
         }
     }
 
-
-    public class LaserBeam : HitscanWeapon
-    {
-        public LaserBeam(YSort projLayer, Timer cooldownTimer)
-        {
-            Name = "LaserBeam";
-            ID = WeaponID.pl_lsrbeam;
-            Damage = 10;
-            CooldownTimer = cooldownTimer;
-            CooldownTime = 1;
-
-            DecalLayer = projLayer;
-            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laserbeam01.tscn");
-        }
-
-        public override void FireWeapon(IAttacker attacker, Vector2 target)
-        {
-            var pInst = ProjectileScene.Instance(); // Instance the scene
-            HitscanBeam instScript = pInst as HitscanBeam; // Get the script
-            DecalLayer.AddChild(pInst); // Add it to the scene
-            var collisons = instScript.GetColliders(attacker.Position, target); // Grab its collisons
-
-            if (collisons != null)
-            {
-                foreach (var damageable in collisons) { damageable.ProcessCombatEvent(new CombatEvent(this, attacker)); }
-            }
-            
-            base.FireWeapon(attacker, target);
-        }
-    }
-
-
+   
     public class Shotgun : HitscanWeapon
     {
         public int Pellets { get; private set; } = 5;
@@ -106,6 +75,33 @@ namespace SpaceDoom.Systems.Combat
     }
 
 
+    // - - - Projectile Weapons - - - \\
+    public class LaserBeam : ProjectileWeapon
+    {
+        public LaserBeam(YSort projLayer, Timer cooldownTimer)
+        {
+            Name = "LaserBeam";
+            ID = WeaponID.pl_lsrbeam;
+            Damage = 10;
+            CooldownTimer = cooldownTimer;
+            CooldownTime = 4;
+
+            ProjectileLayer = projLayer;
+            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/Laserbeam01.tscn");
+        }
+
+        public override void FireWeapon(IAttacker attacker, Vector2 target)
+        {
+            var instance = ProjectileScene.Instance();
+            var instScript = instance as BeamProjectile;
+            instScript.SetBeam(attacker.Position, target, new CombatEvent(this, attacker));
+            ProjectileLayer.AddChild(instance);
+
+            base.FireWeapon(attacker, target);
+        }
+    }
+
+
     public class Flamethrower : ProjectileWeapon
     {
         public Flamethrower(YSort projLayer, Timer cooldownTimer)
@@ -119,7 +115,6 @@ namespace SpaceDoom.Systems.Combat
         }
     }
 
-    // - - - Projectile Weapons - - - \\
 
     public class Grenade : ProjectileWeapon
     {

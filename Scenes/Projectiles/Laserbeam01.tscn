@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Aesprite/laserbeam1.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Systems/Projectiles/LaserBeam.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Systems/Projectiles/BeamProjectile.cs" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 750, 20 )
 
 [node name="TextureRect" type="TextureRect"]
 margin_right = 1500.0
@@ -14,3 +17,13 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HitscanArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+
+[node name="Shape" type="CollisionShape2D" parent="HitscanArea"]
+position = Vector2( 749.854, 29.6595 )
+shape = SubResource( 1 )
+[connection signal="body_entered" from="HitscanArea" to="." method="BodyEntered"]
+[connection signal="body_exited" from="HitscanArea" to="." method="BodyExited"]
