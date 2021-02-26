@@ -7,7 +7,9 @@ public class HitscanProjectile : AnimatedSprite
     //Hitscan projectiles need to travel along a given vector quickly and dissapear after its timer runs out
 
     //Data
-    private float Speed { get; set; } = 4500;
+    [Export]
+    private float Speed { get; set; }
+
     private Vector2 Velocity { get; set; }
 
     //Because this sprites rotation is offset by -90 degrees we correct it here

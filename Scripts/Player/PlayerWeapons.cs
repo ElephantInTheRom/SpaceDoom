@@ -31,16 +31,7 @@ namespace SpaceDoom.Systems.Combat
             instScript.SetDirection(attacker.Position, target);
             DecalLayer.AddChild(pInst);
 
-            //Then send out the raycast for the laser MOVE THIS TO AN EXTENSION METHOD
-            attacker.HitscanRaycast.CastTo = new Vector2(0, (Range == 0 ? 9999 : Range)); //Set the cast shape
-            Godot.Object collision = attacker.HitscanRaycast.GetCollider(); //Grab the collision
-            if (collision == null) { return; } //Exit the method if there is no hit
-            //If there is a hit
-            if (collision is IDamageable)
-            {
-                IDamageable entityHit = (IDamageable)collision;
-                entityHit.ProcessCombatEvent(new CombatEvent(this, attacker));
-            }
+            attacker.HitscanRaycast.GetDamageableCollider()?.ProcessCombatEvent(new CombatEvent(this, attacker));
 
             base.FireWeapon(attacker, target);
         }
@@ -71,6 +62,22 @@ namespace SpaceDoom.Systems.Combat
             Damage = 100;
             CooldownTimer = cooldownTimer;
             CooldownTime = 5;
+
+            DecalLayer = projLayer;
+            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/CrossbowBolt01.tscn");
+        }
+
+        public override void FireWeapon(IAttacker attacker, Vector2 target)
+        {
+            //Instanse the scene, grab its script, set its data, and create it.
+            var pInst = ProjectileScene.Instance();
+            HitscanProjectile instScript = pInst as HitscanProjectile;
+            instScript.SetDirection(attacker.Position, target);
+            DecalLayer.AddChild(pInst);
+
+            attacker.HitscanRaycast.GetDamageableCollider()?.ProcessCombatEvent(new CombatEvent(this, attacker));
+
+            base.FireWeapon(attacker, target);
         }
     }
 
