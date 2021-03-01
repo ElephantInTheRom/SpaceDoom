@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Godot;
 using SpaceDoom.Library.Abstract;
@@ -37,10 +38,11 @@ namespace SpaceDoom.Systems.Combat
         }
     }
 
-   
+    
     public class Shotgun : HitscanWeapon
     {
         public int Pellets { get; private set; } = 5;
+        public float Cone { get; private set; } = 15f; //The offset for the pellets angle, in each direction
 
         public Shotgun(YSort projLayer, Timer cooldownTimer)
         {
@@ -49,6 +51,41 @@ namespace SpaceDoom.Systems.Combat
             Damage = 4; //This is per shotgun PELLET
             CooldownTimer = cooldownTimer;
             CooldownTime = 2;
+            Range = 200;
+        }
+
+        public override void FireWeapon(IAttacker attacker, Vector2 target)
+        {
+            //To avoid an endless loop, there must be enough space for pellets to be generated. 
+            if(Cone * 2 < Pellets || Pellets < 2) { throw new Exception("Shotgun stats are set incorrectly!"); }
+
+            var offsets = new List<float>(Pellets);
+            int rPellets; //The remaining amount of pellets to assign, will only change if pellet count is odd
+
+            if (Pellets.IsOdd()) { offsets.Add(0); rPellets = --Pellets / 2; }
+            else { rPellets = Pellets / 2; }
+
+            float origin = 0;
+            float increment = Cone / rPellets;
+
+            for(var p = 0; p < rPellets; p++)
+            {
+                offsets.Add(origin + increment);
+                offsets.Add(-(origin + increment));
+                origin += increment;
+            }
+
+            //List should be finished, now send raycasts. 
+            foreach(var off in offsets)
+            {
+                attacker.HitscanRaycast.RotationDegrees += off;
+                //GD.Print(attacker.HitscanRaycast.RotationDegrees);
+                attacker.HitscanRaycast.GetDamageableCollider()?.
+                    ProcessCombatEvent(new CombatEvent(this, attacker));
+                attacker.HitscanRaycast.RotationDegrees = -90; //Default angle
+            }
+
+            base.FireWeapon(attacker, target);
         }
     }
 

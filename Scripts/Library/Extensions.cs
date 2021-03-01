@@ -27,5 +27,7 @@ namespace SpaceDoom.Library.Extensions
             if (collision == null || !(collision is IDamageable)) { return null; } 
             else { return collision as IDamageable; }
         }
+
+        public static bool IsOdd(this int i) => (i % 2) != 0;
     }
 }
