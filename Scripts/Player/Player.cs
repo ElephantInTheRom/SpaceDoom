@@ -5,15 +5,19 @@ using System.Collections.Generic;
 
 using SpaceDoom.Library;
 using SpaceDoom.Library.Abstract;
+using SpaceDoom.Library.Extensions;
 using SpaceDoom.Systems.Combat;
 using SpaceDoom.Systems.Movement;
 using SpaceDoom.Scenes;
 
 public class Player : KinematicBody2D, IAttacker
 {
-    //Data
+    //Stats
     [Export]
     private int Speed { get; set; }
+
+    //Data
+    public Physics2DDirectSpaceState SpaceState { get; private set; }
 
     //Scripts
     private AnimationController AnimationController { get; set; }
@@ -25,19 +29,20 @@ public class Player : KinematicBody2D, IAttacker
     private SceneBase CurrentSceneBase { get; set; }
     public YSort ProjectileLayer { get; private set; }
     private AnimatedSprite Sprite { get; set; }
-    private Label TestLabel { get; set; }
+    private Line2D TestLine { get; set; }
 
     //Godot methdos
     public override void _Ready()
     {
         base._Ready();
 
-        //Initialize general data
+        //Initialize nodes
         CurrentSceneBase = GetNode<SceneBase>("/root/Main");
         ProjectileLayer = CurrentSceneBase.GetNode<YSort>("FriendlyProjectiles");
         Sprite = GetNode<AnimatedSprite>("Sprite");
         HitscanRaycast = GetNode<RayCast2D>("HitscanCast");
-        TestLabel = GetNode<Label>("Label");
+        TestLine = GetNode<Line2D>("Line2D");
+
         //Controllers
         AnimationController = new AnimationController(Sprite);
         WeaponManager = GetNode<PlayerWeaponManager>("WeaponManager");
@@ -58,6 +63,8 @@ public class Player : KinematicBody2D, IAttacker
     {
         base._PhysicsProcess(delta);
 
+        SpaceState = GetWorld2d().DirectSpaceState; //Set the space state
+
         ProcessMovement(delta);
     }
 
@@ -66,7 +73,18 @@ public class Player : KinematicBody2D, IAttacker
         base._Input(@event);
         //Inputs that do not need to be checked every frame can be put here to save on performance
         if (Input.IsActionJustPressed("mouse_left")) { FireWeapon(); }
-        if (Input.IsActionJustPressed("mouse_right")) { }
+        if (Input.IsActionJustPressed("mouse_right")) 
+        {
+            Print($"Position: {Position}");
+            Print($"Theta: {RotationDegrees}");
+            Print($"Distance: 100");
+            Print($"Calculates to: {GlobalPosition.GetDistantPoint(RotationDegrees, 100)}\n");
+
+            var line = new Line2D() { Name = "testline", Width = 2, Modulate = new Color(255, 0, 0) };
+            CurrentSceneBase.AddChild(line);
+            line.AddPoint(GlobalPosition);
+            line.AddPoint(GlobalPosition.GetDistantPoint(RotationDegrees, 100)); 
+        }
         if (Input.IsActionJustPressed("space")) { }
         if (Input.IsActionJustPressed("interact")) { }
         //Weapon hot keys
@@ -80,7 +98,7 @@ public class Player : KinematicBody2D, IAttacker
     }
 
     // - - - Combat and targeting - - - \\
-    public List<Weapon> EquippedWeapons { get; protected set; }
+    public List<Weapon> EquippedWeapons { get; protected set; } 
     public RayCast2D HitscanRaycast { get; set; }
 
     //Returned from the damageable entity if it was sucessfully hit
@@ -90,6 +108,26 @@ public class Player : KinematicBody2D, IAttacker
         {
             WeaponManager.SelectedWeapon.FireWeapon(this, GetViewport().GetMousePosition());
         }
+    }
+
+    //Send out a complex raycast
+    public IDamageable SendComplexCast(float range = 9999, float angleOffset = 0)
+    {
+        var destination = GlobalPosition.GetDistantPoint(RotationDegrees + angleOffset, range);
+
+        
+
+        var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this }, 
+                                             HitscanRaycast.CollisionMask);
+        if(result.Count > 0)
+        {
+            foreach(var entry in result)
+            {
+                Print(entry);
+            }
+        }
+
+        return null;
     }
 
     //Returned to this class when a damage event was successful
@@ -106,6 +144,9 @@ public class Player : KinematicBody2D, IAttacker
         //Rotation += GetLocalMousePosition().Angle();
         var theta = Math.Atan2(targetPos.y, targetPos.x) * (180 / Math.PI);
         RotationDegrees += (float)theta;
+        //Correct the accuracy of the angle (this is to make sure it stays between 0 and 360)
+        if(RotationDegrees > 360) { RotationDegrees %= 360; }
+        else if(RotationDegrees < 0) { RotationDegrees += 360; }
     }
 
     // - - - Movement & physics handling - - - \\

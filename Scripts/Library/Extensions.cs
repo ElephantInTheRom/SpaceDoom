@@ -16,17 +16,37 @@ namespace SpaceDoom.Library.Extensions
         }      
 
         /// <summary>
+        /// Gets the coordinates of a point given the angle and distance
+        /// </summary>
+        /// <param name="rotationDegrees">Angle theta to desired point.</param>
+        /// <param name="distance">Distance d to that point</param>
+        /// <returns></returns>
+        public static Vector2 GetDistantPoint(this Vector2 origin, float theta, float distance)
+        {
+            var x = (distance * Math.Cos(theta.ToRadians())) + origin.x;
+            var y = (distance * Math.Sin(theta.ToRadians())) + origin.y;
+
+            return new Vector2((float)x, (float)y);
+        }
+
+        /// <summary>
         /// The same as GetCollider(), but only looks for IDamageables
         /// </summary>
         /// <param name="range">Optional range variable</param>
         /// <returns>A damaeable if it hits one, or null if not.</returns>
         public static IDamageable GetDamageableCollider(this RayCast2D cast, float range = 9999f)
         {
-            cast.CastTo = new Vector2(0, range); //Set the cast shape
+            cast.CastTo = new Vector2(range, 0); //Set the cast shape
             Godot.Object collision = cast.GetCollider(); //Grab the collision
             if (collision == null || !(collision is IDamageable)) { return null; } 
-            else { return collision as IDamageable; }
+            else {
+                GD.Print(cast.GetCollisionPoint());
+                return collision as IDamageable; 
+            }
         }
+
+        public static float ToDegrees(this double r) => (float)(r * (180 / Math.PI));
+        public static double ToRadians(this float d) => (double)(d * (Math.PI / 180));
 
         public static bool IsOdd(this int i) => (i % 2) != 0;
     }

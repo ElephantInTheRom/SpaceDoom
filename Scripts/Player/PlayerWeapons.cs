@@ -41,8 +41,8 @@ namespace SpaceDoom.Systems.Combat
     
     public class Shotgun : HitscanWeapon
     {
-        public int Pellets { get; private set; } = 5;
-        public float Cone { get; private set; } = 15f; //The offset for the pellets angle, in each direction
+        public int Pellets { get; private set; } = 7;
+        public float Cone { get; private set; } = 30f; //The offset for the pellets angle, in each direction
 
         public Shotgun(YSort projLayer, Timer cooldownTimer)
         {
@@ -50,7 +50,7 @@ namespace SpaceDoom.Systems.Combat
             ID = WeaponID.pl_shotgun;
             Damage = 4; //This is per shotgun PELLET
             CooldownTimer = cooldownTimer;
-            CooldownTime = 2;
+            CooldownTime = 1;
             Range = 200;
         }
 
@@ -79,12 +79,10 @@ namespace SpaceDoom.Systems.Combat
             foreach(var off in offsets)
             {
                 attacker.HitscanRaycast.RotationDegrees += off;
-                //GD.Print(attacker.HitscanRaycast.RotationDegrees);
                 attacker.HitscanRaycast.GetDamageableCollider()?.
                     ProcessCombatEvent(new CombatEvent(this, attacker));
-                attacker.HitscanRaycast.RotationDegrees = -90; //Default angle
+                attacker.HitscanRaycast.RotationDegrees = 0; //Default angle
             }
-
             base.FireWeapon(attacker, target);
         }
     }
