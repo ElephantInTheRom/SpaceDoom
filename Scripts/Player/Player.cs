@@ -73,18 +73,7 @@ public class Player : KinematicBody2D, IAttacker
         base._Input(@event);
         //Inputs that do not need to be checked every frame can be put here to save on performance
         if (Input.IsActionJustPressed("mouse_left")) { FireWeapon(); }
-        if (Input.IsActionJustPressed("mouse_right")) 
-        {
-            Print($"Position: {Position}");
-            Print($"Theta: {RotationDegrees}");
-            Print($"Distance: 100");
-            Print($"Calculates to: {GlobalPosition.GetDistantPoint(RotationDegrees, 100)}\n");
-
-            var line = new Line2D() { Name = "testline", Width = 2, Modulate = new Color(255, 0, 0) };
-            CurrentSceneBase.AddChild(line);
-            line.AddPoint(GlobalPosition);
-            line.AddPoint(GlobalPosition.GetDistantPoint(RotationDegrees, 100)); 
-        }
+        if (Input.IsActionJustPressed("mouse_right")) { }
         if (Input.IsActionJustPressed("space")) { }
         if (Input.IsActionJustPressed("interact")) { }
         //Weapon hot keys
@@ -111,19 +100,21 @@ public class Player : KinematicBody2D, IAttacker
     }
 
     //Send out a complex raycast
-    public IDamageable SendComplexCast(float range = 9999, float angleOffset = 0)
+    public IDamageable SendComplexCast(float range = 5000, float angleOffset = 0)
     {
-        var destination = GlobalPosition.GetDistantPoint(RotationDegrees + angleOffset, range);
-
+        float theta = (RotationDegrees + angleOffset).NormalizeRotation();
         
+        var destination = GlobalPosition.GetDistantPoint(theta + angleOffset, range);
 
-        var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this }, 
-                                             HitscanRaycast.CollisionMask);
+        var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this } 
+                                             );
+
+        Print(result);
         if(result.Count > 0)
         {
             foreach(var entry in result)
             {
-                Print(entry);
+                
             }
         }
 
@@ -145,8 +136,7 @@ public class Player : KinematicBody2D, IAttacker
         var theta = Math.Atan2(targetPos.y, targetPos.x) * (180 / Math.PI);
         RotationDegrees += (float)theta;
         //Correct the accuracy of the angle (this is to make sure it stays between 0 and 360)
-        if(RotationDegrees > 360) { RotationDegrees %= 360; }
-        else if(RotationDegrees < 0) { RotationDegrees += 360; }
+        RotationDegrees = RotationDegrees.NormalizeRotation();
     }
 
     // - - - Movement & physics handling - - - \\

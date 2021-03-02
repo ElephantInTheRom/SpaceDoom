@@ -45,6 +45,14 @@ namespace SpaceDoom.Library.Extensions
             }
         }
 
+        public static float NormalizeRotation(this float f)
+        {
+            if (f > 360) { return f %= 360; }
+            else if (f < 0) { return f += 360; }
+            else { return f; }
+            
+        }
+
         public static float ToDegrees(this double r) => (float)(r * (180 / Math.PI));
         public static double ToRadians(this float d) => (double)(d * (Math.PI / 180));
 
