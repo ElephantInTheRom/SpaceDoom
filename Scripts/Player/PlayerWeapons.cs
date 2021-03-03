@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Godot;
 using SpaceDoom.Library.Abstract;
 using SpaceDoom.Library.Extensions;
+using SpaceDoom.Library;
 using SpaceDoom.Scenes;
 
 namespace SpaceDoom.Systems.Combat
@@ -26,13 +27,7 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
-            //Instanse the scene, grab its script, set its data, and create it.
-            var pInst = ProjectileScene.Instance();
-            HitscanProjectile instScript = pInst as HitscanProjectile;
-            instScript.SetDirection(attacker.Position, target);
-            DecalLayer.AddChild(pInst);
-
-            attacker.HitscanRaycast.GetDamageableCollider()?.ProcessCombatEvent(new CombatEvent(this, attacker));
+            BasicHitscanFire(attacker, target);
 
             base.FireWeapon(attacker, target);
         }
@@ -78,11 +73,10 @@ namespace SpaceDoom.Systems.Combat
             //List should be finished, now send raycasts. 
             foreach(var off in offsets)
             {
-                attacker.HitscanRaycast.RotationDegrees += off;
-                attacker.HitscanRaycast.GetDamageableCollider()?.
-                    ProcessCombatEvent(new CombatEvent(this, attacker));
-                attacker.HitscanRaycast.RotationDegrees = 0; //Default angle
+                var cast = attacker.SendComplexCast(Range, off);
+                if (cast.DamageableHit) { cast.Damageable.ProcessCombatEvent(new CombatEvent(this, attacker)); }
             }
+
             base.FireWeapon(attacker, target);
         }
     }
@@ -104,13 +98,7 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
-            //Instanse the scene, grab its script, set its data, and create it.
-            var pInst = ProjectileScene.Instance();
-            HitscanProjectile instScript = pInst as HitscanProjectile;
-            instScript.SetDirection(attacker.Position, target);
-            DecalLayer.AddChild(pInst);
-
-            attacker.HitscanRaycast.GetDamageableCollider()?.ProcessCombatEvent(new CombatEvent(this, attacker));
+            BasicHitscanFire(attacker, target);
 
             base.FireWeapon(attacker, target);
         }

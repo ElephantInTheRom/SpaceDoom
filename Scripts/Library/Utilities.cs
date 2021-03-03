@@ -1,6 +1,11 @@
 using System;
 using System.Collections.Generic;
+
+using Godot;
+
 using SpaceDoom.Systems.Movement;
+using SpaceDoom.Library.Abstract;
+using SpaceDoom.Systems.Combat;
 
 namespace SpaceDoom.Library
 {
@@ -49,6 +54,45 @@ namespace SpaceDoom.Library
         {
             base.Enqueue(obj);
             while(base.Count > Size) { base.Dequeue(); }
+        }
+    }
+
+    /// <summary>
+    /// A data structure for defining results from a complex raycast.
+    /// If there was no hit, this structs "NoCollision" bool will be true.
+    /// </summary>
+    public struct RaycastResults
+    {
+        public static RaycastResults Empty = new RaycastResults() { DamageableHit = false, NoCollision = true };
+        
+        public bool NoCollision { get; private set; }
+
+        public bool DamageableHit { get; private set; }
+        public IDamageable Damageable { get; private set; }
+
+        public Vector2 CollisionPoint { get; private set; }
+        public Vector2 CollisionNormal { get; private set; }
+        public Godot.Object ObjectHit { get; private set; }
+
+        public RaycastResults(Godot.Collections.Dictionary dictionary)
+        {
+            NoCollision = false;
+            CollisionPoint = (Vector2)dictionary["position"];
+            CollisionNormal = (Vector2)dictionary["normal"];
+            //ColliderID = (ulong)dictionary["collider_id"];
+            ObjectHit = (Godot.Object)dictionary["collider"];
+
+            if(ObjectHit is IDamageable) 
+            { 
+                Damageable = ObjectHit as IDamageable;
+                DamageableHit = true;
+            }
+            else
+            {
+                Damageable = null;
+                DamageableHit = false;
+            }
+
         }
     }
 }

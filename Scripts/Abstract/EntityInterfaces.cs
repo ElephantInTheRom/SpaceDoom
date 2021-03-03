@@ -21,6 +21,7 @@ namespace SpaceDoom.Library.Abstract
     public interface IAttacker
     {
         void ProcessCombatReply(CombatReply comReply);
+        RaycastResults SendComplexCast(float range, float angleOffset);
 
         RayCast2D HitscanRaycast { get; set; }
         Vector2 Position { get; set; }

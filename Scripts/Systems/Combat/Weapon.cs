@@ -61,6 +61,22 @@ namespace SpaceDoom.Systems.Combat
         {
             base.FireWeapon(attacker, target);
         }
+
+        protected void BasicHitscanFire(IAttacker attacker, Vector2 target)
+        {
+            var cast = attacker.SendComplexCast(5000, 0);
+            if (cast.DamageableHit) { cast.Damageable.ProcessCombatEvent(new CombatEvent(this, attacker)); }
+
+            //Instanse the scene, grab its script, set its data, and create it.
+            var pInst = ProjectileScene.Instance();
+            HitscanProjectile instScript = pInst as HitscanProjectile;
+
+            //If the cast hit something, tell the projectile to dissapear @ the collision point
+            if (cast.NoCollision) { instScript.SetDirection(attacker.Position, target, false); }
+            else { instScript.SetDirection(attacker.Position, cast.CollisionPoint, true); }
+
+            DecalLayer.AddChild(pInst);
+        }
     }
 
     public abstract class ProjectileWeapon : Weapon

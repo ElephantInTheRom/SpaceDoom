@@ -73,7 +73,7 @@ public class Player : KinematicBody2D, IAttacker
         base._Input(@event);
         //Inputs that do not need to be checked every frame can be put here to save on performance
         if (Input.IsActionJustPressed("mouse_left")) { FireWeapon(); }
-        if (Input.IsActionJustPressed("mouse_right")) { }
+        if (Input.IsActionJustPressed("mouse_right")) { SendComplexCast(); }
         if (Input.IsActionJustPressed("space")) { }
         if (Input.IsActionJustPressed("interact")) { }
         //Weapon hot keys
@@ -99,26 +99,17 @@ public class Player : KinematicBody2D, IAttacker
         }
     }
 
-    //Send out a complex raycast
-    public IDamageable SendComplexCast(float range = 5000, float angleOffset = 0)
+    //Send out a complex raycast, and return IDamageable if there was a hit.
+    public RaycastResults SendComplexCast(float range = 5000, float angleOffset = 0)
     {
         float theta = (RotationDegrees + angleOffset).NormalizeRotation();
         
         var destination = GlobalPosition.GetDistantPoint(theta + angleOffset, range);
 
-        var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this } 
-                                             );
+        var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this });
 
-        Print(result);
-        if(result.Count > 0)
-        {
-            foreach(var entry in result)
-            {
-                
-            }
-        }
-
-        return null;
+        if(result.Count > 0) { return new RaycastResults(result); }
+        else { return RaycastResults.Empty; }
     }
 
     //Returned to this class when a damage event was successful
