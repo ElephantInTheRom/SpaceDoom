@@ -25,5 +25,6 @@ namespace SpaceDoom.Library.Abstract
 
         RayCast2D HitscanRaycast { get; set; }
         Vector2 Position { get; set; }
+        float RotationDegrees { get; set; }
     }
 }

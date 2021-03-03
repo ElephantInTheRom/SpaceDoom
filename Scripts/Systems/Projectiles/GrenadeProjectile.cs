@@ -7,6 +7,7 @@ using SpaceDoom.Library.Abstract;
 
 //Script for a grenade projectile. 
 //This grenade works by applying a force in a certain direction, and sending a combat event to anything in its explosion radius
+
 public class GrenadeProjectile : RigidBody2D
 {
     //Data

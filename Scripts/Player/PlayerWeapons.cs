@@ -152,7 +152,7 @@ namespace SpaceDoom.Systems.Combat
             Damage = 3;
             ProjectileTime = 1.5f;
             CooldownTimer = cooldownTimer;
-            CooldownTime = 10;
+            CooldownTime = 2;
 
             ProjectileLayer = projLayer;
             ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/NapalmProjectile.tscn");
@@ -160,7 +160,10 @@ namespace SpaceDoom.Systems.Combat
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
         {
-
+            var instance = ProjectileScene.Instance();
+            var script = instance as FireProjectile;
+            script.SetDirection(attacker, new CombatEvent(this, attacker));
+            ProjectileLayer.AddChild(instance);
 
             base.FireWeapon(attacker, target);
         }
