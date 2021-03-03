@@ -70,14 +70,16 @@ namespace SpaceDoom.Library
         public bool DamageableHit { get; private set; }
         public IDamageable Damageable { get; private set; }
 
+        public Vector2 EndPoint { get; private set; }
         public Vector2 CollisionPoint { get; private set; }
         public Vector2 CollisionNormal { get; private set; }
         public Godot.Object ObjectHit { get; private set; }
 
-        public RaycastResults(Godot.Collections.Dictionary dictionary)
+        public RaycastResults(Godot.Collections.Dictionary dictionary, Vector2 endpoint)
         {
             NoCollision = false;
             CollisionPoint = (Vector2)dictionary["position"];
+            EndPoint = endpoint;
             CollisionNormal = (Vector2)dictionary["normal"];
             //ColliderID = (ulong)dictionary["collider_id"];
             ObjectHit = (Godot.Object)dictionary["collider"];

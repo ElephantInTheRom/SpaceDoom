@@ -47,6 +47,9 @@ namespace SpaceDoom.Systems.Combat
             CooldownTimer = cooldownTimer;
             CooldownTime = 1;
             Range = 200;
+
+            DecalLayer = projLayer;
+            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/ShotgunPellet01.tscn");
         }
 
         public override void FireWeapon(IAttacker attacker, Vector2 target)
@@ -75,6 +78,14 @@ namespace SpaceDoom.Systems.Combat
             {
                 var cast = attacker.SendComplexCast(Range, off);
                 if (cast.DamageableHit) { cast.Damageable.ProcessCombatEvent(new CombatEvent(this, attacker)); }
+                //Send projectile
+                var pInst = ProjectileScene.Instance();
+                HitscanProjectile instScript = pInst as HitscanProjectile;
+
+                if (cast.NoCollision) { instScript.SetDirection(attacker.Position, cast.EndPoint, true); }
+                else { instScript.SetDirection(attacker.Position, cast.CollisionPoint, true); }
+
+                DecalLayer.AddChild(pInst);
             }
 
             base.FireWeapon(attacker, target);
