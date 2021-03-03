@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using Godot;
 using SpaceDoom.Library.Abstract;
 using SpaceDoom.Library.Extensions;
-using SpaceDoom.Library;
-using SpaceDoom.Scenes;
+using SpaceDoom.Systems.Projectiles;
 
 namespace SpaceDoom.Systems.Combat
 {

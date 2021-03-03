@@ -65,6 +65,8 @@ public class Player : KinematicBody2D, IAttacker
 
         SpaceState = GetWorld2d().DirectSpaceState; //Set the space state
 
+        //Here are inputs that do need to be checked every frame
+        if (Input.IsActionPressed("mouse_left")) { FireWeapon(); }
         ProcessMovement(delta);
     }
 
@@ -72,7 +74,6 @@ public class Player : KinematicBody2D, IAttacker
     {
         base._Input(@event);
         //Inputs that do not need to be checked every frame can be put here to save on performance
-        if (Input.IsActionJustPressed("mouse_left")) { FireWeapon(); }
         if (Input.IsActionJustPressed("mouse_right")) { SendComplexCast(); }
         if (Input.IsActionJustPressed("space")) { }
         if (Input.IsActionJustPressed("interact")) { }
@@ -95,7 +96,7 @@ public class Player : KinematicBody2D, IAttacker
     {
         if (WeaponManager.SelectedWeapon.Loaded) 
         {
-            WeaponManager.SelectedWeapon.FireWeapon(this, GetViewport().GetMousePosition());
+            WeaponManager.FireCurrentWeapon(this, GetViewport().GetMousePosition());
         }
     }
 

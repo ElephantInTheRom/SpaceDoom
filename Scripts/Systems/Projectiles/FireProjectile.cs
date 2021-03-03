@@ -9,88 +9,89 @@ using SpaceDoom.Systems.Combat;
 using SpaceDoom.Library.Abstract;
 
 
-
-public class FireProjectile : Area2D
+namespace SpaceDoom.Systems.Projectiles
 {
-    //This class represents an area for flamethrower damage. 
-    //When this node gets created, it must fire its projectiles, and damage all entities within it. 
-    private bool SendingDamage { get; set; } = false;
-
-    private IAttacker Attacker { get; set; }
-    public CombatEvent _CombatEvent { get; private set; }
-    private List<PhysicsBody2D> BodiesInRadius { get; set; }
-    private Queue<IDamageable> DamageableQueue { get; set; }
-
-    private Particles2D Emitter { get; set; }
-
-    public void SetDirection(IAttacker attacker, CombatEvent combatEvent)
+    public class FireProjectile : Area2D
     {
-        Position = attacker.Position;
-        RotationDegrees = attacker.RotationDegrees;
-        _CombatEvent = combatEvent;
-        Attacker = attacker;
-    }
+        //This class represents an area for flamethrower damage. 
+        //When this node gets created, it must fire its projectiles, and damage all entities within it. 
+        private bool SendingDamage { get; set; } = false;
 
-    public override void _Ready()
-    {
-        base._Ready();
+        private IAttacker Attacker { get; set; }
+        public CombatEvent _CombatEvent { get; private set; }
+        private List<PhysicsBody2D> BodiesInRadius { get; set; }
+        private Queue<IDamageable> DamageableQueue { get; set; }
 
-        Emitter = GetNode<Particles2D>("Particles");
+        private Particles2D Emitter { get; set; }
 
-        BodiesInRadius = new List<PhysicsBody2D>();
-
-        Emitter.Emitting = true;
-    }
-
-    public override void _PhysicsProcess(float delta)
-    {
-        base._PhysicsProcess(delta);
-
-        //Once we are sending damage to nodes
-        if (SendingDamage)
+        public void SetDirection(IAttacker attacker, CombatEvent combatEvent)
         {
-            //If it is assigned and has items, send damage, otherwise check if particles are over
-            //If particles are over, free node. 
-            if (DamageableQueue.Count > 0)
-            {
-                DamageableQueue.Dequeue().ProcessCombatEvent(_CombatEvent);
-            }
-            else if (!Emitter.Emitting)
-            {
-                QueueFree();
-            }
+            Position = attacker.Position;
+            RotationDegrees = attacker.RotationDegrees;
+            _CombatEvent = combatEvent;
+            Attacker = attacker;
         }
-    }
 
-    //Signal from timer to send damage
-    public void DamageTimeout()
-    {
-        SendingDamage = true;
-
-        if (BodiesInRadius.Count > 0)
+        public override void _Ready()
         {
+            base._Ready();
+
+            Emitter = GetNode<Particles2D>("Particles");
+
+            BodiesInRadius = new List<PhysicsBody2D>();
             DamageableQueue = new Queue<IDamageable>();
 
-            var query = from body in BodiesInRadius
-                        where body is IDamageable
-                        orderby body.Position.DistanceTo(Position) ascending
-                        select body;
+            Emitter.Emitting = true;
+        }
 
-            foreach (var b in query.ToArray())
+        public override void _PhysicsProcess(float delta)
+        {
+            base._PhysicsProcess(delta);
+
+            //Once we are sending damage to nodes
+            if (SendingDamage)
             {
-                DamageableQueue.Enqueue(b as IDamageable);
+                //If it is assigned and has items, send damage, otherwise check if particles are over
+                //If particles are over, free node. 
+                if (DamageableQueue.Count > 0)
+                {
+                    DamageableQueue.Dequeue().ProcessCombatEvent(_CombatEvent);
+                }
+                else if (!Emitter.Emitting)
+                {
+                    QueueFree();
+                }
             }
         }
-    }
 
-    //Bodies entering the flame range
-    public void BodyEntered(PhysicsBody2D body)
-    {
-        if (body is IDamageable) { BodiesInRadius.Add(body); }
-    }
+        //Signal from timer to send damage
+        public void DamageTimeout()
+        {
+            SendingDamage = true;
 
-    public void BodyExited(PhysicsBody2D body)
-    {
-        if (body is IDamageable && BodiesInRadius.Contains(body)) { BodiesInRadius.Remove(body); }
+            if (BodiesInRadius.Count > 0)
+            {
+                var query = from body in BodiesInRadius
+                            where body is IDamageable
+                            orderby body.Position.DistanceTo(Position) ascending
+                            select body;
+
+                foreach (var b in query.ToArray())
+                {
+                    DamageableQueue.Enqueue(b as IDamageable);
+                }
+            }
+        }
+
+        //Bodies entering the flame range
+        public void BodyEntered(PhysicsBody2D body)
+        {
+            if (body is IDamageable) { BodiesInRadius.Add(body); }
+        }
+
+        public void BodyExited(PhysicsBody2D body)
+        {
+            if (body is IDamageable && BodiesInRadius.Contains(body)) { BodiesInRadius.Remove(body); }
+        }
     }
 }

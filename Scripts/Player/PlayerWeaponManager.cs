@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using SpaceDoom.Systems.Combat;
+using SpaceDoom.Library.Abstract;
 
 //This class holds all references to the players collection of weapons
 //It also holds information about those weapons cooldowns. 
@@ -37,7 +38,16 @@ public class PlayerWeaponManager : Node
         EquipWeapon(WeaponID.pl_lsrgun);
     }
 
-    //Methods for sorting and selecting a specified weapon
+    //Methods for sorting, selecting and firing weapons
+
+    public void FireCurrentWeapon(IAttacker attacker, Vector2 target)
+    {
+        if(SelectedWeapon.Loaded)
+        {
+            SelectedWeapon.FireWeapon(attacker, target);
+        }
+    }
+
     public void EquipWeapon(WeaponID weaponId)
     {
         SelectedWeapon = GetWeapon(weaponId);
