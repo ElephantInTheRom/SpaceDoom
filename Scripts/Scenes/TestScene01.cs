@@ -11,6 +11,7 @@ public class TestScene01 : SceneBase
     private PackedScene EnemyScene { get; set; }
     //Nodes
     private Timer TestTimer { get; set; }
+    private Label TestLabel { get; set; }
     private AudioStreamPlayer MusicBackground { get; set; }
     //Data
     private Random rng = new Random();
@@ -25,12 +26,22 @@ public class TestScene01 : SceneBase
 
         HitscanLayer = GetNode<YSort>("FriendlyProjectiles");
         TestTimer = GetNode<Timer>("Timer");
+        TestLabel = GetNode<Label>("BackgroundObjects/TestLabel");
         MusicBackground = GetNode<AudioStreamPlayer>("MusicBackground");
 
         LoadPlayer(new Vector2(600, 400));
 
         //Load GUI
         GetNode<CanvasLayer>("GUI").AddChild(GUIScene.Instance());
+
+        Engine.TargetFps = 120; //Testing out framerates here, dont keep this here
+    }
+
+    public override void _Process(float delta)
+    {
+        base._Process(delta);
+
+        TestLabel.Text = Engine.GetFramesPerSecond().ToString();
     }
 
     public void MusicBackgroundOver()

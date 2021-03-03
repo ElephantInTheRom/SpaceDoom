@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/Enemies/Enemy_Bee.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Effects/DamageFXManager.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Scenes/Healthbar.cs" type="Script" id=3]
 [ext_resource path="res://Aesprite/laserHitParticle01.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Enemies/Enemy_Yellow.png" type="Texture" id=5]
+[ext_resource path="res://Aesprite/fireparticle.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -59,6 +60,23 @@ initial_velocity = 75.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
+[sub_resource type="Curve" id=10]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0.00429185, 105 ), 0.0, -184.19, 0, 0, Vector2( 1, -0.454559 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+lifetime_randomness = 0.7
+emission_shape = 1
+emission_sphere_radius = 128.0
+flag_disable_z = true
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel_curve = SubResource( 11 )
+
 [node name="EnemyBee" type="KinematicBody2D"]
 z_index = 1
 collision_layer = 2147483650
@@ -89,6 +107,14 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 9 )
 texture = ExtResource( 4 )
+
+[node name="FireParticles" type="Particles2D" parent="DmgFXManager"]
+scale = Vector2( 0.2, 0.2 )
+emitting = false
+amount = 70
+lifetime = 2.5
+process_material = SubResource( 12 )
+texture = ExtResource( 6 )
 
 [node name="Healthbar" type="Polygon2D" parent="."]
 self_modulate = Color( 1, 0, 0, 1 )

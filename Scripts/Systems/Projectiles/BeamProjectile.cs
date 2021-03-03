@@ -25,15 +25,14 @@ public class BeamProjectile : TextureRect
         RectRotation = (float)theta;
     }
 
-    //Fades the node out over time
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
-        base._Process(delta);
+        base._PhysicsProcess(delta);
 
         //Make more transparent as time goes on
         Modulate = new Color(Modulate, (float)(Modulate.a - .02));
 
-        if(Modulate.a <= 0) { QueueFree(); }
+        if (Modulate.a <= 0) { QueueFree(); }
     }
 
     //Signals for bodies colliding

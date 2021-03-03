@@ -153,6 +153,16 @@ namespace SpaceDoom.Systems.Combat
             ProjectileTime = 1.5f;
             CooldownTimer = cooldownTimer;
             CooldownTime = 10;
+
+            ProjectileLayer = projLayer;
+            ProjectileScene = ResourceLoader.Load<PackedScene>("res://Scenes/Projectiles/NapalmProjectile.tscn");
+        }
+
+        public override void FireWeapon(IAttacker attacker, Vector2 target)
+        {
+
+
+            base.FireWeapon(attacker, target);
         }
     }
 

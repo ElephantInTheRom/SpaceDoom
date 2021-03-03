@@ -108,8 +108,7 @@ public class Player : KinematicBody2D, IAttacker
 
         var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this });
 
-        if(result.Count > 0) { return new RaycastResults(result, destination); }
-        else { return RaycastResults.Empty; }
+        return new RaycastResults(result, destination);
     }
 
     //Returned to this class when a damage event was successful
