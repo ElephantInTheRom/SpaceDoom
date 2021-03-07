@@ -32,7 +32,7 @@ public class TestScene01 : SceneBase
         LoadPlayer(new Vector2(600, 400));
 
         //Load GUI
-        GetNode<CanvasLayer>("GUI").AddChild(GUIScene.Instance());
+        //GetNode<CanvasLayer>("GUI").AddChild(GUIScene.Instance());
 
         Engine.TargetFps = 120; //Testing out framerates here, dont keep this here
     }

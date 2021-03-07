@@ -17,14 +17,19 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
+"frames": [  ],
 "loop": true,
-"name": "grenadelauncher",
+"name": "shotgun",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "pulsar",
+"name": "laserbeam",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "grenadelauncher",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
@@ -34,22 +39,17 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
-"name": "crossbow",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "napalm",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "shotgun",
+"name": "pulsar",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
-"name": "laserbeam",
+"name": "crossbow",
 "speed": 5.0
 } ]
 

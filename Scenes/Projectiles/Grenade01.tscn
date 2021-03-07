@@ -4,11 +4,11 @@
 [ext_resource path="res://Scripts/Systems/Projectiles/GrenadeProjectile.cs" type="Script" id=2]
 [ext_resource path="res://Aesprite/explosionparticle1.png" type="Texture" id=3]
 
-[sub_resource type="PhysicsMaterial" id=4]
+[sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
 bounce = 0.2
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
@@ -16,10 +16,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 15.9326
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=4]
 radius = 65.0
 
 [sub_resource type="CircleShape2D" id=5]
@@ -47,17 +47,17 @@ color_ramp = SubResource( 7 )
 [node name="Grenade" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 10
-physics_material_override = SubResource( 4 )
+physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
 contact_monitor = true
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="ExplosionRadius" type="Area2D" parent="."]
 visible = false
@@ -65,7 +65,7 @@ collision_layer = 8
 collision_mask = 6
 
 [node name="Shape" type="CollisionShape2D" parent="ExplosionRadius"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="DetTimer" type="Timer" parent="."]
 

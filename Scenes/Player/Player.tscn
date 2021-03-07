@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Graphics/Animations/ShipAnimation.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://Scripts/Player/PlayerWeaponManager.cs" type="Script" id=3]
-[ext_resource path="res://Scripts/Player/DefaultCamera.cs" type="Script" id=4]
 
 [node name="Player" type="KinematicBody2D"]
 z_index = 1
@@ -74,16 +73,6 @@ one_shot = true
 [node name="Line2D" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 0, 0 )
 width = 5.0
-
-[node name="Camera" type="Camera2D" parent="."]
-scale = Vector2( 1.22857, 0.446547 )
-anchor_mode = 0
-current = true
-limit_left = 0
-limit_top = 0
-limit_right = 1280
-limit_bottom = 720
-script = ExtResource( 4 )
 [connection signal="timeout" from="WeaponManager/LaserGunTimer" to="WeaponManager" method="Lsrguntimeout"]
 [connection signal="timeout" from="WeaponManager/LaserBeamTimer" to="WeaponManager" method="Lsrbeamtimeout"]
 [connection signal="timeout" from="WeaponManager/GrenadeTimer" to="WeaponManager" method="Grenadetimeout"]

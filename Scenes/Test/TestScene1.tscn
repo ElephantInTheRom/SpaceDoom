@@ -1,9 +1,42 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Scenes/TestScene01.cs" type="Script" id=1]
-[ext_resource path="res://Graphics/Placeholder/Background.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/Backrounds/BackgroundSheet.png" type="Texture" id=2]
 [ext_resource path="res://Fonts/montserrat/Montserrat-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Sounds/Placeholder/GOD-RACE.ogg" type="AudioStream" id=4]
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 1920, 1080 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 1920, 0, 1920, 1080 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 3840, 0, 1920, 1080 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 5760, 0, 1920, 1080 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 7680, 0, 1920, 1080 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -24,16 +57,16 @@ layer = -1
 position = Vector2( 128, 128 )
 
 [node name="node2" type="Node2D" parent="EnemySpawnPositons"]
-position = Vector2( 448, 64 )
+position = Vector2( 680, 80 )
 
 [node name="node3" type="Node2D" parent="EnemySpawnPositons"]
-position = Vector2( 640, 192 )
+position = Vector2( 992, 192 )
 
 [node name="node4" type="Node2D" parent="EnemySpawnPositons"]
-position = Vector2( 840, 72 )
+position = Vector2( 1272, 56 )
 
 [node name="node5" type="Node2D" parent="EnemySpawnPositons"]
-position = Vector2( 1168, 152 )
+position = Vector2( 1728, 160 )
 
 [node name="EnemySpawnTimer" type="Timer" parent="EnemySpawnPositons"]
 autostart = true
@@ -41,9 +74,9 @@ autostart = true
 [node name="BackgroundObjects" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="Background" type="Sprite" parent="BackgroundObjects"]
-scale = Vector2( 0.666667, 0.666667 )
-texture = ExtResource( 2 )
+[node name="Background" type="AnimatedSprite" parent="BackgroundObjects"]
+frames = SubResource( 7 )
+frame = 3
 centered = false
 
 [node name="TestLabel" type="Label" parent="BackgroundObjects"]
