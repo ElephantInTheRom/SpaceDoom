@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Graphics/Animations/BGAnimation.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Fonts/Audiowide/Audiowide-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Test/CombatTestScene.cs" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 35
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="BGAnimation" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+centered = false
+
+[node name="EnemyOrigin" type="Node2D" parent="."]
+position = Vector2( 128, 128 )
+
+[node name="TestLabel" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "Frames per second or sume thing"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5

@@ -73,6 +73,10 @@ one_shot = true
 [node name="Line2D" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 0, 0 )
 width = 5.0
+
+[node name="MainCamera" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
 [connection signal="timeout" from="WeaponManager/LaserGunTimer" to="WeaponManager" method="Lsrguntimeout"]
 [connection signal="timeout" from="WeaponManager/LaserBeamTimer" to="WeaponManager" method="Lsrbeamtimeout"]
 [connection signal="timeout" from="WeaponManager/GrenadeTimer" to="WeaponManager" method="Grenadetimeout"]
