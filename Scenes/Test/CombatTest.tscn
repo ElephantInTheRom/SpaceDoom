@@ -15,6 +15,8 @@ script = ExtResource( 3 )
 
 [node name="BGAnimation" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
+frame = 2
+playing = true
 centered = false
 
 [node name="EnemyOrigin" type="Node2D" parent="."]
@@ -31,3 +33,7 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
+autostart = true
+
+[node name="FriendlyProjectiles" type="YSort" parent="."]
+[connection signal="timeout" from="Timer" to="." method="CreateEnemy"]

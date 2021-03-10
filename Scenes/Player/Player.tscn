@@ -77,6 +77,10 @@ width = 5.0
 [node name="MainCamera" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
 [connection signal="timeout" from="WeaponManager/LaserGunTimer" to="WeaponManager" method="Lsrguntimeout"]
 [connection signal="timeout" from="WeaponManager/LaserBeamTimer" to="WeaponManager" method="Lsrbeamtimeout"]
 [connection signal="timeout" from="WeaponManager/GrenadeTimer" to="WeaponManager" method="Grenadetimeout"]

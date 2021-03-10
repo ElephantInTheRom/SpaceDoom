@@ -19,12 +19,22 @@ font_data = ExtResource( 1 )
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "shotgun",
+"name": "napalm",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "crossbow",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "laserbeam",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "pulsar",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -39,17 +49,7 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
-"name": "napalm",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "pulsar",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "crossbow",
+"name": "shotgun",
 "speed": 5.0
 } ]
 
