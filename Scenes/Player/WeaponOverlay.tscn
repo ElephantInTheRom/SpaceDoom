@@ -1,98 +1,68 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Fonts/montserrat/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Scripts/Player/WeaponOverlay.cs" type="Script" id=2]
-[ext_resource path="res://Aesprite/LaserGun01.png" type="Texture" id=3]
-[ext_resource path="res://Aesprite/GrenadeLauncher01.png" type="Texture" id=4]
+[ext_resource path="res://Fonts/Audiowide/Audiowide-Regular.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=1]
-size = 25
+size = 15
+outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 25
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 1 )
-
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "napalm",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "crossbow",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "laserbeam",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "pulsar",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "grenadelauncher",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "lasergun",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "shotgun",
-"speed": 5.0
-} ]
-
-[node name="TestWeaponUI" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 2 )
+[node name="Main" type="HBoxContainer"]
+margin_top = 900.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Outline" type="Polygon2D" parent="."]
-color = Color( 0, 0.00392157, 0.305882, 0.423529 )
-polygon = PoolVector2Array( 0, 480, 192, 480, 192, 624, 288, 624, 288, 720, 0, 720 )
+[node name="WeaponListCon" type="VBoxContainer" parent="."]
+margin_right = 256.0
+margin_bottom = 180.0
 
-[node name="WeaponSelectLabel" type="RichTextLabel" parent="."]
-margin_top = 480.0
-margin_right = 192.0
-margin_bottom = 720.0
-custom_fonts/bold_font = SubResource( 1 )
-custom_fonts/normal_font = SubResource( 2 )
-bbcode_enabled = true
-bbcode_text = "0: [b][color=green]Laser Gun[/color][b]
-1: Laser Beam
-2: Grenade
-3: Pulsar
-4: Crossbow
-5: Napalm
-6: Shotgun"
-text = "0: Laser Gun
-1: Laser Beam
-2: Grenade
-3: Pulsar
-4: Crossbow
-5: Napalm
-6: Shotgun"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="RichTextLabel" type="RichTextLabel" parent="WeaponListCon"]
+margin_right = 256.0
+margin_bottom = 180.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_text = "Laser Gun
+Laser Beam
+Grenade
+Pulsar
+Crossbow
+Flamethrower
+Shotgun"
+text = "Laser Gun
+Laser Beam
+Grenade
+Pulsar
+Crossbow
+Flamethrower
+Shotgun"
 
-[node name="SelectedWeaponSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 232, 676 )
-scale = Vector2( 0.3, 0.275 )
-frames = SubResource( 3 )
-animation = "lasergun"
+[node name="WeaponImgCon" type="VBoxContainer" parent="."]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 180.0
+
+[node name="HealthDisplayCon" type="MarginContainer" parent="."]
+margin_left = 8.0
+margin_right = 8.0
+margin_bottom = 180.0
+
+[node name="MetalDisplayCon" type="MarginContainer" parent="."]
+margin_left = 12.0
+margin_right = 12.0
+margin_bottom = 180.0
+
+[node name="AbilityImgCon" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_right = 16.0
+margin_bottom = 180.0
+
+[node name="AbilityListCon" type="VBoxContainer" parent="."]
+margin_left = 20.0
+margin_right = 20.0
+margin_bottom = 180.0

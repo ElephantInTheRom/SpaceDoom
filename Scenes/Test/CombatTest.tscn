@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Graphics/Animations/BGAnimation.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Fonts/Audiowide/Audiowide-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Scenes/Test/CombatTestScene.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Scenes/CombatTestScene.cs" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 35
@@ -15,7 +15,6 @@ script = ExtResource( 3 )
 
 [node name="BGAnimation" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-frame = 2
 playing = true
 centered = false
 

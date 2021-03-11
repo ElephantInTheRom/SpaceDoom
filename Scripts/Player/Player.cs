@@ -96,7 +96,7 @@ public class Player : KinematicBody2D, IAttacker
     {
         if (WeaponManager.SelectedWeapon.Loaded) 
         {
-            WeaponManager.FireCurrentWeapon(this, GetViewport().GetMousePosition());
+            WeaponManager.FireCurrentWeapon(this, GetViewport().GetMousePosition()); 
         }
     }
 
