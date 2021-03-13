@@ -15,6 +15,7 @@ script = ExtResource( 3 )
 
 [node name="BGAnimation" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
+frame = 2
 playing = true
 centered = false
 
