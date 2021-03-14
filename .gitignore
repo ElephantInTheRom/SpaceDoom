@@ -16,7 +16,10 @@ data_*\
 .idea
 .vs\
 *~
+<<<<<<< Updated upstream
 
 # Imported translations (automatically generated from CSV files)
 *.translation
 
+=======
+>>>>>>> Stashed changes
