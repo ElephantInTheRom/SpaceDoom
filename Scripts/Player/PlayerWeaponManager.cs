@@ -13,8 +13,11 @@ public class PlayerWeaponManager : Node
     //Weapon Collections
     public List<Weapon> EquippedWeapons { get; private set; }
     public Weapon SelectedWeapon { get; private set; }
-    //Actions
-    public event Action SelectionChanged;
+    //Events
+    public delegate void PlayerWeaponDelegate();
+    public event PlayerWeaponDelegate WeaponChanged;
+    public event PlayerWeaponDelegate EquippedWeapon;
+    public event PlayerWeaponDelegate WeaponStateChanged;
 
     public override void _Ready()
     {
@@ -51,7 +54,7 @@ public class PlayerWeaponManager : Node
     public void EquipWeapon(WeaponID weaponId)
     {
         SelectedWeapon = GetWeapon(weaponId);
-        if (SelectionChanged != null) { SelectionChanged(); }
+        if (WeaponChanged != null) { WeaponChanged(); }
     }
 
     public Weapon GetWeapon(WeaponID weaponId)

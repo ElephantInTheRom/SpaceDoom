@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\USERS\\HAYDE\\DOCUMENTS\\GODOT\\PROJECTS\\SPACEDOOM\\SpaceDoom.csproj": {}
+    "C:\\Users\\hayde\\Documents\\Godot\\SpaceDoom\\SpaceDoom.csproj": {}
   },
   "projects": {
-    "C:\\USERS\\HAYDE\\DOCUMENTS\\GODOT\\PROJECTS\\SPACEDOOM\\SpaceDoom.csproj": {
+    "C:\\Users\\hayde\\Documents\\Godot\\SpaceDoom\\SpaceDoom.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\USERS\\HAYDE\\DOCUMENTS\\GODOT\\PROJECTS\\SPACEDOOM\\SpaceDoom.csproj",
+        "projectUniqueName": "C:\\Users\\hayde\\Documents\\Godot\\SpaceDoom\\SpaceDoom.csproj",
         "projectName": "SpaceDoom",
-        "projectPath": "C:\\USERS\\HAYDE\\DOCUMENTS\\GODOT\\PROJECTS\\SPACEDOOM\\SpaceDoom.csproj",
+        "projectPath": "C:\\Users\\hayde\\Documents\\Godot\\SpaceDoom\\SpaceDoom.csproj",
         "packagesPath": "C:\\Users\\hayde\\.nuget\\packages\\",
-        "outputPath": "C:\\USERS\\HAYDE\\DOCUMENTS\\GODOT\\PROJECTS\\SPACEDOOM\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\hayde\\Documents\\Godot\\SpaceDoom\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
           "C:\\Users\\hayde\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net472"
@@ -49,7 +45,7 @@
               "version": "[12.0.3, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

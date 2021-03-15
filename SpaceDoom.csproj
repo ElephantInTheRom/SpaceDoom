@@ -8,5 +8,6 @@
   <ItemGroup>
     <Folder Include="Scripts\Systems\Movement\" />
     <Folder Include="Scripts\Systems\Points\" />
+    <Folder Include="Scripts\Tests\" />
   </ItemGroup>
 </Project>

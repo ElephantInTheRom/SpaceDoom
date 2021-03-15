@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EUsLR8BvUF8JQGr+RVfW/BTEg/BP0LaxEryKeJBGQE+0EfBqfktVfTuQEQ4DRnPC04ubsqz16OEhxHJL8D65eQ==",
+  "dgSpecHash": "daCisqwhuWRQ9PzJwFytgQSxG7hHCy2yaqyMdybPVvEnX8Aa+WNNzPBKutwr+oGA3hjSfYQLe5nG/2CicoK+/w==",
   "success": true,
-  "projectFilePath": "C:\\USERS\\HAYDE\\DOCUMENTS\\GODOT\\PROJECTS\\SPACEDOOM\\SpaceDoom.csproj",
+  "projectFilePath": "C:\\Users\\hayde\\Documents\\Godot\\SpaceDoom\\SpaceDoom.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hayde\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],

@@ -41,6 +41,8 @@ public class CombatTestScene : SceneBase
         base._Process(delta);
 
         TestLabel.Text = Engine.GetFramesPerSecond().ToString();
+
+        if (Input.IsActionJustPressed("Fullscreen")) { OS.WindowFullscreen = !OS.WindowFullscreen; }
     }
 
     //Spawning enemies for combat testing
