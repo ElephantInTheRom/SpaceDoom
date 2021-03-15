@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+using SpaceDoom.Systems.Combat;
+
 public static class PlayerSingleton
 {
     private static PackedScene PlayerScene { get; set; }
