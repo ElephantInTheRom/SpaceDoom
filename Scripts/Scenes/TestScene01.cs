@@ -29,7 +29,7 @@ public class TestScene01 : SceneBase
         TestLabel = GetNode<Label>("BackgroundObjects/TestLabel");
         MusicBackground = GetNode<AudioStreamPlayer>("MusicBackground");
 
-        LoadPlayer(new Vector2(600, 400));
+        LoadPlayer(new Vector2(600, 400), false);
 
         //Load GUI
         //GetNode<CanvasLayer>("GUI").AddChild(GUIScene.Instance());

@@ -13,6 +13,9 @@ public class PlayerWeaponManager : Node
     //Weapon Collections
     public List<Weapon> EquippedWeapons { get; private set; }
     public Weapon SelectedWeapon { get; private set; }
+    //GUI References
+    public PanelContainer GUIRoot { get; private set; }
+    private PackedScene GUIScene { get; set; } 
     //Events
     public delegate void PlayerWeaponDelegate();
     public event PlayerWeaponDelegate WeaponChanged;
@@ -22,6 +25,9 @@ public class PlayerWeaponManager : Node
     public override void _Ready()
     {
         base._Ready();
+
+        GUIScene = GD.Load<PackedScene>("res://Scenes/Player/WeaponOverlay.tscn");
+        GUIRoot = GUIScene.Instance() as PanelContainer;
     }
 
     public void SetLayers(YSort hitLayer, YSort projLayer)

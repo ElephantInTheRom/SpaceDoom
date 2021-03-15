@@ -23,13 +23,18 @@ namespace SpaceDoom.Scenes
         }
 
         //Load player into scene
-        protected void LoadPlayer(Vector2 position, Node parent = null, int zIndex = 1)
+        protected void LoadPlayer(Vector2 position, bool loadGUI, Node parent = null, int zIndex = 1)
         {
             if (parent == null) { parent = this; }
             parent.AddChild(PlayerInstance);
             PlayerScript.Position = position;
             PlayerScript.ZIndex = zIndex;
             PlayerLoaded = true;
+
+            if (loadGUI) 
+            { 
+                GetNode<CanvasLayer>("UI")?.AddChild(PlayerScript.WeaponManager.GUIRoot); 
+            }
         }
 
         //Default bevahior for unloading a scene but keeping the player instance safe

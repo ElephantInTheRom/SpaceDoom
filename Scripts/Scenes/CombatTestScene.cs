@@ -25,10 +25,9 @@ public class CombatTestScene : SceneBase
         TestTimer = GetNode<Timer>("Timer");
         TestLabel = GetNode<Label>("TestLabel");
 
-        GUIScene = GD.Load<PackedScene>("res://Scenes/Player/WeaponOverlay.tscn");
         EnemyScene = GD.Load<PackedScene>("res://Scenes/Entities/Enemy_Bee.tscn");
 
-        LoadPlayer(new Vector2(1024, 800));
+        LoadPlayer(new Vector2(1024, 800), true);
 
         for(var e = EnemyMax; e > 0; e--)
         {
@@ -40,7 +39,7 @@ public class CombatTestScene : SceneBase
     {
         base._Process(delta);
 
-        TestLabel.Text = Engine.GetFramesPerSecond().ToString();
+        TestLabel.Text = PlayerSingleton.WeaponMgr.SelectedWeapon.CooldownTimer.TimeLeft.ToString();
 
         if (Input.IsActionJustPressed("Fullscreen")) { OS.WindowFullscreen = !OS.WindowFullscreen; }
     }

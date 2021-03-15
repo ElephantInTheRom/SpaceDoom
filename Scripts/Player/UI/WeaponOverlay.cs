@@ -85,6 +85,6 @@ public class WeaponOverlay : Control
 
     public void UpdateIcon()
     {
-
+        GD.Print("Icon updated lol");
     }
 }
