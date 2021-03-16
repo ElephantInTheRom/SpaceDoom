@@ -16,6 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SpaceDoom"
+run/main_scene="res://Scenes/Test/CombatTest.tscn"
 config/icon="res://icon.png"
 
 [display]

@@ -13,8 +13,8 @@ using SpaceDoom.Scenes;
 public class Player : KinematicBody2D, IAttacker
 {
     //Stats
-    [Export]
-    private int Speed { get; set; }
+    [Export] private int Speed { get; set; }
+    public float PlayerScore { get; set; }
 
     //Data
     public Physics2DDirectSpaceState SpaceState { get; private set; }
@@ -115,7 +115,10 @@ public class Player : KinematicBody2D, IAttacker
     //Returned to this class when a damage event was successful
     public void ProcessCombatReply(CombatReply comReply)
     {
-        
+        if(comReply.KilledEntity)
+        {
+            PlayerScore += 100 + comReply.DamageDone;
+        }
     }
 
     private void RotateToLookAt(Vector2 targetPos)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Graphics/Animations/BGAnimation.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Fonts/Audiowide/Audiowide-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/Scenes/CombatTestScene.cs" type="Script" id=3]
+[ext_resource path="res://Sounds/Placeholder/Raining-Gold_1.ogg" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 35
@@ -22,6 +23,11 @@ frames = ExtResource( 1 )
 frame = 1
 playing = true
 centered = false
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+pitch_scale = 0.8
+bus = "MusicBackground"
 
 [node name="EnemyOrigin" type="Node2D" parent="."]
 position = Vector2( 128, 128 )
@@ -43,4 +49,5 @@ autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
+[connection signal="finished" from="BGMusic" to="." method="MusicBackgroundFinished"]
 [connection signal="timeout" from="Timer" to="." method="CreateEnemy"]

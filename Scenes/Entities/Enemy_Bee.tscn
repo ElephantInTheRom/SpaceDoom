@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Enemies/Enemy_Bee.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Effects/DamageFXManager.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Aesprite/laserHitParticle01.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Enemies/Enemy_Yellow.png" type="Texture" id=5]
 [ext_resource path="res://Aesprite/fireparticle.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/Enemies/Enemy_Yellow_Death.png" type="Texture" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -37,18 +38,63 @@ flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 320, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=23]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=15]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
+"speed": 4.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "death",
+"speed": 7.0
 } ]
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=16]
 radius = 33.8787
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=17]
 emission_shape = 1
 emission_sphere_radius = 5.0
 flag_disable_z = true
@@ -60,22 +106,22 @@ initial_velocity = 75.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="Curve" id=10]
+[sub_resource type="Curve" id=18]
 min_value = -200.0
 max_value = 200.0
 _data = [ Vector2( 0.00429185, 105 ), 0.0, -184.19, 0, 0, Vector2( 1, -0.454559 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=11]
-curve = SubResource( 10 )
+[sub_resource type="CurveTexture" id=19]
+curve = SubResource( 18 )
 
-[sub_resource type="ParticlesMaterial" id=12]
+[sub_resource type="ParticlesMaterial" id=20]
 lifetime_randomness = 0.7
 emission_shape = 1
 emission_sphere_radius = 128.0
 flag_disable_z = true
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-linear_accel_curve = SubResource( 11 )
+linear_accel_curve = SubResource( 19 )
 
 [node name="EnemyBee" type="KinematicBody2D"]
 z_index = 1
@@ -86,12 +132,14 @@ Health = 20
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 rotation = 3.14159
-frames = SubResource( 7 )
+frames = SubResource( 15 )
 animation = "idle"
+frame = 3
+playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 8 )
+shape = SubResource( 16 )
 
 [node name="DmgFXManager" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -105,7 +153,7 @@ emitting = false
 amount = 10
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 9 )
+process_material = SubResource( 17 )
 texture = ExtResource( 4 )
 
 [node name="FireParticles" type="Particles2D" parent="DmgFXManager"]
@@ -113,7 +161,7 @@ scale = Vector2( 0.2, 0.2 )
 emitting = false
 amount = 70
 lifetime = 2.5
-process_material = SubResource( 12 )
+process_material = SubResource( 20 )
 texture = ExtResource( 6 )
 
 [node name="Healthbar" type="Polygon2D" parent="."]
@@ -124,3 +172,17 @@ script = ExtResource( 3 )
 [node name="Overlay" type="Polygon2D" parent="Healthbar"]
 modulate = Color( 0, 0.72549, 0.113725, 1 )
 polygon = PoolVector2Array( -32, -40, -32, -48, 32, -48, 32, -40 )
+
+[node name="PointLabel" type="Label" parent="."]
+visible = false
+margin_left = -16.0
+margin_top = -8.0
+margin_right = 16.0
+margin_bottom = 6.0
+text = "+100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="PointLabel"]
+[connection signal="animation_finished" from="Sprite" to="." method="SpriteAnimationFinished"]
