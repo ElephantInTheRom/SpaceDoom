@@ -31,6 +31,9 @@ namespace SpaceDoom.Systems.Combat
 
             RunningWeaponManager = PlayerSingleton.PlayerScript.WeaponManager;
 
+            WeaponIcon = GetNode<TextureRect>("TextureRect");
+            LoadProgress = GetNode<TextureProgress>("ProgressBar");
+
             WeaponMap = new Dictionary<WeaponID, RichTextLabel>()
         {
             { WeaponID.pl_lsrgun, GetNode<RichTextLabel>("WeaponList/LaserGun") },
@@ -49,8 +52,8 @@ namespace SpaceDoom.Systems.Combat
         {
             base._Process(delta);
 
-            UpdateText();
             UpdateProgress();
+            UpdateText();
         }
 
         //Methods used to update parts of the display
@@ -69,7 +72,7 @@ namespace SpaceDoom.Systems.Combat
 
                 if (wep == RunningWeaponManager.SelectedWeapon)
                 {
-                    line.BbcodeText = $"[b][color={ColorMap[wep.State]}]{wep.Name}[/color][/b]";
+                    line.BbcodeText = $"[u][color={ColorMap[wep.State]}]{wep.Name}[/color][/u]";
                 }
                 else
                 {
@@ -84,24 +87,24 @@ namespace SpaceDoom.Systems.Combat
         public void UpdateProgress()
         {
             var remaining = RunningWeaponManager.SelectedWeapon.CooldownTimer.TimeLeft;
+            var total = RunningWeaponManager.SelectedWeapon.CooldownTime;
             //If there is no time left, skip these calculations
-            if (remaining == 0)
+            if (remaining == 0 || total < 1)
             {
                 LoadProgress.Value = 100;
                 LoadProgress.TintProgress = new Color(0, 255, 0);
             }
             else
             {
-                var total = RunningWeaponManager.SelectedWeapon.CooldownTime;
                 var progress = total - remaining;
                 var progressPercent = (progress * 100) / total;
 
                 LoadProgress.Value = progressPercent;
 
                 //Even though this is the use case for a switch, we are using older than C# 7 and cannot use relational patterns
-                if (progressPercent > 66) { LoadProgress.TintProgress = new Color(0, 255, 0); }
-                else if (progressPercent > 33) { LoadProgress.TintProgress = new Color(255, 255, 0); }
-                else if (progressPercent < 33) { LoadProgress.TintProgress = new Color(255, 0, 0); }
+                if (progressPercent == 100) { LoadProgress.TintProgress = new Color(0, 255, 0); }
+                else if (progressPercent > 66) { LoadProgress.TintProgress = new Color(255, 255, 0); }
+                else if (progressPercent < 66) { LoadProgress.TintProgress = new Color(255, 0, 0); }
             }
         }
 
