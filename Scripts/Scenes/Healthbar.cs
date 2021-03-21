@@ -1,4 +1,4 @@
-using Godot;
+ using Godot;
 using System;
 
 //The class that controls the behavior of an entities healthbar

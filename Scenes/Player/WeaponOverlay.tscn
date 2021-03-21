@@ -86,6 +86,7 @@ text = "Grenade"
 fit_content_height = true
 
 [node name="Pulsar" type="RichTextLabel" parent="WeaponCorner/WeaponList"]
+visible = false
 margin_top = 81.0
 margin_right = 200.0
 margin_bottom = 115.0
@@ -103,9 +104,9 @@ text = "Pulsar"
 fit_content_height = true
 
 [node name="Crossbow" type="RichTextLabel" parent="WeaponCorner/WeaponList"]
-margin_top = 108.0
+margin_top = 81.0
 margin_right = 200.0
-margin_bottom = 142.0
+margin_bottom = 115.0
 rect_min_size = Vector2( 200, 34 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -120,9 +121,9 @@ text = "Crossbow"
 fit_content_height = true
 
 [node name="Flamethrower" type="RichTextLabel" parent="WeaponCorner/WeaponList"]
-margin_top = 135.0
+margin_top = 108.0
 margin_right = 200.0
-margin_bottom = 169.0
+margin_bottom = 142.0
 rect_min_size = Vector2( 200, 34 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -137,9 +138,9 @@ text = "Flamethrower"
 fit_content_height = true
 
 [node name="Shotgun" type="RichTextLabel" parent="WeaponCorner/WeaponList"]
-margin_top = 162.0
+margin_top = 135.0
 margin_right = 200.0
-margin_bottom = 196.0
+margin_bottom = 169.0
 rect_min_size = Vector2( 200, 34 )
 size_flags_horizontal = 0
 size_flags_vertical = 0

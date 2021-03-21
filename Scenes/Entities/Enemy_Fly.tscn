@@ -1,0 +1,188 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://Graphics/Enemies/Enemy_Red_Death.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Effects/DamageFXManager.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Scenes/Healthbar.cs" type="Script" id=3]
+[ext_resource path="res://Aesprite/laserHitParticle01.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/Enemies/Enemy_Red.png" type="Texture" id=5]
+[ext_resource path="res://Aesprite/fireparticle.png" type="Texture" id=6]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "death",
+"speed": 7.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 24.7747, 28.5233 )
+
+[sub_resource type="ParticlesMaterial" id=17]
+emission_shape = 1
+emission_sphere_radius = 5.0
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 100.0
+flatness = 1.0
+gravity = Vector3( 0, 75, 0 )
+initial_velocity = 75.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="Curve" id=18]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0.00429185, 105 ), 0.0, -184.19, 0, 0, Vector2( 1, -0.454559 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=19]
+curve = SubResource( 18 )
+
+[sub_resource type="ParticlesMaterial" id=20]
+lifetime_randomness = 0.7
+emission_shape = 1
+emission_sphere_radius = 128.0
+flag_disable_z = true
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel_curve = SubResource( 19 )
+
+[node name="EnemyFly" type="KinematicBody2D"]
+z_index = 1
+collision_layer = 2147483650
+collision_mask = 11
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+rotation = 3.14159
+frames = SubResource( 15 )
+animation = "idle"
+frame = 3
+playing = true
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -3.50769 )
+shape = SubResource( 16 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DmgFXManager" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="DMGTimer01" type="Timer" parent="DmgFXManager"]
+
+[node name="DMGTimer02" type="Timer" parent="DmgFXManager"]
+
+[node name="LaserHit" type="Particles2D" parent="DmgFXManager"]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 17 )
+texture = ExtResource( 4 )
+
+[node name="FireParticles" type="Particles2D" parent="DmgFXManager"]
+scale = Vector2( 0.2, 0.2 )
+emitting = false
+amount = 70
+lifetime = 2.5
+process_material = SubResource( 20 )
+texture = ExtResource( 6 )
+
+[node name="Healthbar" type="Polygon2D" parent="."]
+self_modulate = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( -32, -40, -32, -48, 32, -48, 32, -40 )
+script = ExtResource( 3 )
+
+[node name="Overlay" type="Polygon2D" parent="Healthbar"]
+modulate = Color( 0, 0.72549, 0.113725, 1 )
+polygon = PoolVector2Array( -32, -40, -32, -48, 32, -48, 32, -40 )
+
+[node name="PointLabel" type="Label" parent="."]
+visible = false
+margin_left = -16.0
+margin_top = -8.0
+margin_right = 16.0
+margin_bottom = 6.0
+text = "+100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="PointLabel"]
+[connection signal="animation_finished" from="Sprite" to="." method="SpriteAnimationFinished"]
