@@ -65,12 +65,12 @@ public class CombatTestScene : SceneBase
         var offset = new Vector2(128 + rng.Next(0, 1664), 128 + rng.Next(0, 448));
         var instance = EnemyScene.Instance();
         var script = instance as Enemy;
-        script.EnemyDied += EnemyDown;
+        script.Died += EnemyDown;
         LoadChildAt(script, offset);
         EnemyCount++;
     }
 
-    public void EnemyDown() => EnemyCount--;
+    public void EnemyDown(int d) => EnemyCount--;
 
     //Music!
     public void MusicBackgroundFinished()

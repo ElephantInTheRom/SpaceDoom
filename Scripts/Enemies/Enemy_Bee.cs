@@ -43,7 +43,8 @@ namespace SpaceDoom.Enemies
             Dead = true;
 
             PointsLabel.Show();
-            PointLabelTween.InterpolateProperty(PointsLabel, "rect_position", null, new Vector2(-16, 150), 4);
+            PointLabelTween.InterpolateProperty(PointsLabel, "rect_position", null, new Vector2(-16, -125), 3.5f);
+            PointLabelTween.Start();
 
             Sprite.Play("death");
 

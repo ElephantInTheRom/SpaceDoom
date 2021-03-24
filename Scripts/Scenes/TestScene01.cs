@@ -55,7 +55,7 @@ public class TestScene01 : SceneBase
         if(EnemyCount < 7) { SpawnEnemy(); }
     }
 
-    private void EnemyDown() => EnemyCount--;
+    private void EnemyDown(int d) => EnemyCount--;
 
     private void SpawnEnemy()
     {
@@ -63,7 +63,7 @@ public class TestScene01 : SceneBase
         Vector2 offset = new Vector2(rng.Next(-100, 100), rng.Next(0, 100));
         var eInst = EnemyScene.Instance();
         var eScript = eInst as Enemy;
-        eScript.EnemyDied += EnemyDown;
+        eScript.Died += EnemyDown;
         LoadChildAt((KinematicBody2D)eInst, spawner.Position + offset);
         EnemyCount++;
     }

@@ -2,6 +2,8 @@ using Godot;
 using SpaceDoom.Systems.Combat;
 using System;
 
+using SpaceDoom.Components;
+
 namespace SpaceDoom.Library.Abstract
 {
     //The base class for all enemies in the game
@@ -18,7 +20,7 @@ namespace SpaceDoom.Library.Abstract
         public DamageFXManager DMFXManager { get; set; }
 
         //Scripts
-        private Healthbar Healthbar { get; set; }
+        private HealthDisplay Healthbar { get; set; }
 
         //Delegates
         public delegate void EnemyHealthDelegate(int difference);
@@ -35,8 +37,8 @@ namespace SpaceDoom.Library.Abstract
             DMFXManager = GetNode<DamageFXManager>("DmgFXManager");
             DMFXManager.Parent = this;
 
-            Healthbar = GetNode<Healthbar>("Healthbar");
-            Healthbar.InjectData(Health, Health, this);
+            Healthbar = GetNode<HealthDisplay>("HealthDisplay");
+            Healthbar.InjectData(Health, Health, true, this);
         }
 
         //- - - Damage interaction methdos - - -\\

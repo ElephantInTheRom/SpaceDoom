@@ -1,12 +1,14 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Graphics/Enemies/Enemy_Red_Death.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Effects/DamageFXManager.cs" type="Script" id=2]
-[ext_resource path="res://Scenes/UI/Healthbar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Graphics/HealthBar/HealthBarProgress.png" type="Texture" id=3]
 [ext_resource path="res://Aesprite/laserHitParticle01.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Enemies/Enemy_Red.png" type="Texture" id=5]
 [ext_resource path="res://Aesprite/fireparticle.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/Enemies/Enemy_Fly.cs" type="Script" id=7]
+[ext_resource path="res://Graphics/HealthBar/HealthBarOver.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/Components/HealthDisplay.cs" type="Script" id=9]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -133,7 +135,6 @@ script = ExtResource( 7 )
 rotation = 3.14159
 frames = SubResource( 15 )
 animation = "idle"
-frame = 2
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="."]
@@ -179,5 +180,22 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="PointLabel"]
 
-[node name="Healthbar" parent="." instance=ExtResource( 3 )]
+[node name="HealthDisplay" type="TextureProgress" parent="."]
+margin_left = -30.0
+margin_top = -45.0
+margin_right = 90.0
+margin_bottom = -29.0
+rect_scale = Vector2( 0.5, 0.5 )
+value = 75.0
+texture_under = ExtResource( 3 )
+texture_over = ExtResource( 8 )
+texture_progress = ExtResource( 3 )
+tint_under = Color( 1, 0, 0, 0.431373 )
+tint_progress = Color( 0, 0.823529, 0, 1 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Interpolater" type="Tween" parent="HealthDisplay"]
 [connection signal="animation_finished" from="Sprite" to="." method="SpriteAnimationFinished"]
