@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Godot;
 
 using SpaceDoom.Library.Abstract;
@@ -6,7 +6,7 @@ using SpaceDoom.Systems.Combat;
 
 namespace SpaceDoom.Enemies
 {
-    public class Enemy_Bee : Enemy
+    public class Enemy_Fly : Enemy
     {
         //Nodes
         private Tween PointLabelTween { get; set; }
@@ -26,7 +26,7 @@ namespace SpaceDoom.Enemies
 
         public void SpriteAnimationFinished()
         {
-            if(Sprite.Animation == "death") 
+            if (Sprite.Animation == "death")
             {
                 QueueFree();
             }

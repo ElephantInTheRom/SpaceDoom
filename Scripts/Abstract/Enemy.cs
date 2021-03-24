@@ -20,9 +20,11 @@ namespace SpaceDoom.Library.Abstract
         //Scripts
         private Healthbar Healthbar { get; set; }
 
+        //Delegates
+        public delegate void EnemyHealthDelegate(int difference);
         //Events
-        public event Action<int> HealthChanged; //Action is invoked every time health is changed with the difference in health
-        public event Action EnemyDied;
+        public event EnemyHealthDelegate @HealthChanged;
+        public event EnemyHealthDelegate @Died;
 
         //Godot methods
         public override void _Ready()
@@ -34,8 +36,7 @@ namespace SpaceDoom.Library.Abstract
             DMFXManager.Parent = this;
 
             Healthbar = GetNode<Healthbar>("Healthbar");
-            Healthbar.SetData(Health, Health);
-            HealthChanged += Healthbar.HealthChanged;
+            Healthbar.InjectData(Health, Health, this);
         }
 
         //- - - Damage interaction methdos - - -\\
@@ -43,21 +44,20 @@ namespace SpaceDoom.Library.Abstract
         {
             bool fatal = (Health - comEvent.DamageSent) <= 0;
             int actualDamage = fatal ? Health : comEvent.DamageSent;
-            //
-            if (HealthChanged != null) { HealthChanged(-actualDamage); }
-            //
+            //Invoke event
+            @HealthChanged?.Invoke(-actualDamage);
+            //Change health
             Health -= actualDamage;
             comEvent.Attacker.ProcessCombatReply(new CombatReply(fatal, this, actualDamage));
-            if (fatal) { TriggerDeath(); }
+            if (fatal) { TriggerDeath(actualDamage); }
         }
 
-        public virtual void TriggerDeath()
+        public virtual void TriggerDeath(int finalBlow)
         {
-            //GD.Print("Enemy down!");
-            EnemyDied?.Invoke();
+            @Died?.Invoke(finalBlow);
             QueueFree();
         }
 
-        protected void _invokeDealthAction() => EnemyDied?.Invoke();
+        protected void _invokeDealthAction(int finalBlow) => @Died?.Invoke(finalBlow);
     }
 }

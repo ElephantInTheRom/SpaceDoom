@@ -1,12 +1,13 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scripts/Enemies/Enemy_Bee.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Effects/DamageFXManager.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Scenes/Healthbar.cs" type="Script" id=3]
+[ext_resource path="res://Graphics/HealthBar/HealthBarProgress.png" type="Texture" id=3]
 [ext_resource path="res://Aesprite/laserHitParticle01.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Enemies/Enemy_Yellow.png" type="Texture" id=5]
 [ext_resource path="res://Aesprite/fireparticle.png" type="Texture" id=6]
 [ext_resource path="res://Graphics/Enemies/Enemy_Yellow_Death.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/HealthBar/HealthBarOver.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -38,42 +39,42 @@ flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 320, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=24]
+[sub_resource type="AtlasTexture" id=10]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 192, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=25]
+[sub_resource type="AtlasTexture" id=11]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 256, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=26]
+[sub_resource type="AtlasTexture" id=12]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 320, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=27]
+[sub_resource type="AtlasTexture" id=13]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 384, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=28]
+[sub_resource type="AtlasTexture" id=14]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 448, 0, 64, 64 )
@@ -85,7 +86,7 @@ animations = [ {
 "name": "idle",
 "speed": 4.0
 }, {
-"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "death",
 "speed": 7.0
@@ -134,7 +135,7 @@ Health = 20
 rotation = 3.14159
 frames = SubResource( 15 )
 animation = "idle"
-frame = 3
+frame = 4
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="."]
@@ -164,15 +165,6 @@ lifetime = 2.5
 process_material = SubResource( 20 )
 texture = ExtResource( 6 )
 
-[node name="Healthbar" type="Polygon2D" parent="."]
-self_modulate = Color( 1, 0, 0, 1 )
-polygon = PoolVector2Array( -32, -40, -32, -48, 32, -48, 32, -40 )
-script = ExtResource( 3 )
-
-[node name="Overlay" type="Polygon2D" parent="Healthbar"]
-modulate = Color( 0, 0.72549, 0.113725, 1 )
-polygon = PoolVector2Array( -32, -40, -32, -48, 32, -48, 32, -40 )
-
 [node name="PointLabel" type="Label" parent="."]
 visible = false
 margin_left = -16.0
@@ -185,4 +177,24 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="PointLabel"]
+
+[node name="Healthbar" type="TextureProgress" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -30.0
+margin_top = -45.0
+margin_right = 90.0
+margin_bottom = -30.0
+rect_scale = Vector2( 0.5, 0.5 )
+value = 75.0
+texture_under = ExtResource( 3 )
+texture_over = ExtResource( 8 )
+texture_progress = ExtResource( 3 )
+tint_under = Color( 1, 0, 0, 0.431373 )
+tint_progress = Color( 0, 0.823529, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Interpolater" type="Tween" parent="Healthbar"]
 [connection signal="animation_finished" from="Sprite" to="." method="SpriteAnimationFinished"]

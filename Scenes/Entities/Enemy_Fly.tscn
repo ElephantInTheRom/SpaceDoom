@@ -1,11 +1,12 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Graphics/Enemies/Enemy_Red_Death.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Effects/DamageFXManager.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Scenes/Healthbar.cs" type="Script" id=3]
+[ext_resource path="res://Scenes/UI/Healthbar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Aesprite/laserHitParticle01.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Enemies/Enemy_Red.png" type="Texture" id=5]
 [ext_resource path="res://Aesprite/fireparticle.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/Enemies/Enemy_Fly.cs" type="Script" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -126,12 +127,13 @@ linear_accel_curve = SubResource( 19 )
 z_index = 1
 collision_layer = 2147483650
 collision_mask = 11
+script = ExtResource( 7 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 rotation = 3.14159
 frames = SubResource( 15 )
 animation = "idle"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="."]
@@ -164,15 +166,6 @@ lifetime = 2.5
 process_material = SubResource( 20 )
 texture = ExtResource( 6 )
 
-[node name="Healthbar" type="Polygon2D" parent="."]
-self_modulate = Color( 1, 0, 0, 1 )
-polygon = PoolVector2Array( -32, -40, -32, -48, 32, -48, 32, -40 )
-script = ExtResource( 3 )
-
-[node name="Overlay" type="Polygon2D" parent="Healthbar"]
-modulate = Color( 0, 0.72549, 0.113725, 1 )
-polygon = PoolVector2Array( -32, -40, -32, -48, 32, -48, 32, -40 )
-
 [node name="PointLabel" type="Label" parent="."]
 visible = false
 margin_left = -16.0
@@ -185,4 +178,6 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="PointLabel"]
+
+[node name="Healthbar" parent="." instance=ExtResource( 3 )]
 [connection signal="animation_finished" from="Sprite" to="." method="SpriteAnimationFinished"]
