@@ -1,18 +1,19 @@
 using System;
 using Godot;
-
+using SpaceDoom.Library;
 using SpaceDoom.Library.Abstract;
 using SpaceDoom.Systems.Combat;
 
 namespace SpaceDoom.Enemies
 {
-    public class Enemy_Fly : Enemy
+    public class Enemy_Fly : Enemy, IAttacker
     {
         //Nodes
         private Tween PointLabelTween { get; set; }
         private Label PointsLabel { get; set; }
         //Data
         public bool Dead { get; protected set; } = false;
+        public RayCast2D HitscanRaycast { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         //Godot methods
         public override void _Ready()
@@ -24,20 +25,18 @@ namespace SpaceDoom.Enemies
             PointsLabel = GetNode<Label>("PointLabel");
         }
 
-        public void SpriteAnimationFinished()
-        {
-            if (Sprite.Animation == "death")
-            {
-                QueueFree();
-            }
-        }
-
-        //Behavior methods
+        // - - - Targeting and Attacking - - - \\
         public override void ProcessCombatEvent(CombatEvent comEvent)
         {
             if (!Dead) { base.ProcessCombatEvent(comEvent); }
         }
 
+        public void ProcessCombatReply(CombatReply comReply)
+        {
+            throw new NotImplementedException();
+        }
+
+        // - - - Behavior - - - \\
         public override void TriggerDeath(int finalBlow)
         {
             Dead = true;
@@ -48,6 +47,14 @@ namespace SpaceDoom.Enemies
             Sprite.Play("death");
 
             _invokeDealthAction(finalBlow);
+        }
+
+        public void SpriteAnimationFinished()
+        {
+            if (Sprite.Animation == "death")
+            {
+                QueueFree();
+            }
         }
     }
 }

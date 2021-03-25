@@ -23,7 +23,7 @@ namespace SpaceDoom.Library.Abstract
         void ProcessCombatReply(CombatReply comReply);
         RaycastResults SendComplexCast(float range, float angleOffset);
 
-        RayCast2D HitscanRaycast { get; set; }
+        //RayCast2D HitscanRaycast { get; set; }
         Vector2 Position { get; set; }
         float RotationDegrees { get; set; }
     }

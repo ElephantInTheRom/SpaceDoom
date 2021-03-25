@@ -5,7 +5,7 @@ using Godot;
 
 using SpaceDoom.Systems.Movement;
 using SpaceDoom.Library.Abstract;
-using SpaceDoom.Systems.Combat;
+using SpaceDoom.Library.Extensions;
 
 namespace SpaceDoom.Library
 {
@@ -75,6 +75,7 @@ namespace SpaceDoom.Library
         public Vector2 CollisionNormal { get; private set; }
         public Godot.Object ObjectHit { get; private set; }
 
+        //Construct from a cast that was already done
         public RaycastResults(Godot.Collections.Dictionary dictionary, Vector2 endpoint)
         {
             if(dictionary.Count > 0)

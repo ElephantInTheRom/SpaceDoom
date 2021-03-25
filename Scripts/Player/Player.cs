@@ -10,10 +10,12 @@ using SpaceDoom.Systems.Combat;
 using SpaceDoom.Systems.Movement;
 using SpaceDoom.Scenes;
 
-public class Player : KinematicBody2D, IAttacker
+public class Player : KinematicBody2D, IAttacker, IDamageable
 {
     //Stats
     [Export] private int Speed { get; set; }
+    [Export] public int Health { get; private set; }
+    [Export] public int Armor { get; private set; }
     public float PlayerScore { get; set; }
 
     //Data
@@ -40,7 +42,7 @@ public class Player : KinematicBody2D, IAttacker
         CurrentSceneBase = GetNode<SceneBase>("/root/Main");
         ProjectileLayer = CurrentSceneBase.GetNode<YSort>("FriendlyProjectiles");
         Sprite = GetNode<AnimatedSprite>("Sprite");
-        HitscanRaycast = GetNode<RayCast2D>("HitscanCast");
+        //HitscanRaycast = GetNode<RayCast2D>("HitscanCast");
         TestLine = GetNode<Line2D>("Line2D");
 
         //Controllers
@@ -89,7 +91,7 @@ public class Player : KinematicBody2D, IAttacker
 
     // - - - Combat and targeting - - - \\
     public List<Weapon> EquippedWeapons { get; protected set; } 
-    public RayCast2D HitscanRaycast { get; set; }
+    //public RayCast2D HitscanRaycast { get; set; }
 
     //Returned from the damageable entity if it was sucessfully hit
     private void FireWeapon()
@@ -110,6 +112,11 @@ public class Player : KinematicBody2D, IAttacker
         var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this });
 
         return new RaycastResults(result, destination);
+    }
+
+    public void ProcessCombatEvent(CombatEvent comEvent)
+    {
+
     }
 
     //Returned to this class when a damage event was successful

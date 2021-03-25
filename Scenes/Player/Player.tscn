@@ -9,6 +9,7 @@ z_index = 1
 collision_mask = 7
 script = ExtResource( 1 )
 Speed = 300
+Health = 100
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708

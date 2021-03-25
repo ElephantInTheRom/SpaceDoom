@@ -3,6 +3,7 @@ using SpaceDoom.Systems.Combat;
 using System;
 
 using SpaceDoom.Components;
+using SpaceDoom.Library.Extensions;
 
 namespace SpaceDoom.Library.Abstract
 {
@@ -10,10 +11,11 @@ namespace SpaceDoom.Library.Abstract
     public class Enemy : KinematicBody2D, IDamageable
     {
         //Data
-        [Export]
-        public int Health { get; protected set; }
-        [Export]
-        public int Armor { get; protected set; }
+        [Export] public int Health { get; protected set; }
+        [Export] public int Armor { get; protected set; }
+
+        //Engine Data
+        private Physics2DDirectSpaceState SpaceState { get; set; }
 
         //Nodes
         protected AnimatedSprite Sprite { get; set; }
@@ -41,6 +43,13 @@ namespace SpaceDoom.Library.Abstract
             Healthbar.InjectData(Health, Health, true, this);
         }
 
+        public override void _PhysicsProcess(float delta)
+        {
+            SpaceState = GetWorld2d().DirectSpaceState; //Set the space state
+
+            base._PhysicsProcess(delta);
+        }
+
         //- - - Damage interaction methdos - - -\\
         public virtual void ProcessCombatEvent(CombatEvent comEvent)
         {
@@ -61,5 +70,19 @@ namespace SpaceDoom.Library.Abstract
         }
 
         protected void _invokeDealthAction(int finalBlow) => @Died?.Invoke(finalBlow);
+
+        // - - - Targeting/Attacking Methods - - -\\
+
+        //Send out a complex raycast, and return IDamageable if there was a hit.
+        public RaycastResults SendComplexCast(float range = 5000, float angleOffset = 0)
+        {
+            float theta = (RotationDegrees + angleOffset).NormalizeRotation();
+
+            var destination = GlobalPosition.GetDistantPoint(theta + angleOffset, range);
+
+            var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this });
+
+            return new RaycastResults(result, destination);
+        }
     }
 }
