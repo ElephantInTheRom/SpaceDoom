@@ -42,7 +42,6 @@ public class Player : KinematicBody2D, IAttacker, IDamageable
         CurrentSceneBase = GetNode<SceneBase>("/root/Main");
         ProjectileLayer = CurrentSceneBase.GetNode<YSort>("FriendlyProjectiles");
         Sprite = GetNode<AnimatedSprite>("Sprite");
-        //HitscanRaycast = GetNode<RayCast2D>("HitscanCast");
         TestLine = GetNode<Line2D>("Line2D");
 
         //Controllers
@@ -50,8 +49,9 @@ public class Player : KinematicBody2D, IAttacker, IDamageable
         WeaponManager = GetNode<PlayerWeaponManager>("WeaponManager");
         WeaponManager.SetLayers(ProjectileLayer, ProjectileLayer);
 
-        //Initialize Movement
+        //Initialize Data
         DirectionsThisFrame = new DirectionQueue();
+        PlayerDead = false;
     }
 
     public override void _Process(float delta)
@@ -89,13 +89,26 @@ public class Player : KinematicBody2D, IAttacker, IDamageable
         if (Input.IsActionJustPressed("Shotgun")) { WeaponManager.EquipWeapon(WeaponID.pl_shotgun); }
     }
 
+    // = = = Signals - - - \\
+
+    public void SpriteAnimationFinished()
+    {
+        if(Sprite.Animation == "death") 
+        { 
+            Print("Player died!");
+            Sprite.Play("idle");
+            PlayerDead = false;
+        }
+    }
+
     // - - - Combat and targeting - - - \\
     public List<Weapon> EquippedWeapons { get; protected set; } 
-    //public RayCast2D HitscanRaycast { get; set; }
 
     //Returned from the damageable entity if it was sucessfully hit
     private void FireWeapon()
     {
+        if (PlayerDead) { return; } //Do not fire weapons if player is dead
+
         if (WeaponManager.SelectedWeapon.Loaded) 
         {
             WeaponManager.FireCurrentWeapon(this, GetViewport().GetMousePosition()); 
@@ -130,6 +143,7 @@ public class Player : KinematicBody2D, IAttacker, IDamageable
 
     private void RotateToLookAt(Vector2 targetPos)
     {
+        if (PlayerDead) { return; }
         //Difference between Atan and Atan2 is Atan 2 allows for calculations across all quadrants
         //You must add this calculation to the rotation instead of setting it because once the ship is
         //facing the target the angle is 0
@@ -147,6 +161,8 @@ public class Player : KinematicBody2D, IAttacker, IDamageable
 
     private void ProcessMovement(float delta)
     {
+        if (PlayerDead) { return; }
+
         FrameMoving = false;
         DirectionsThisFrame.Clear();
         //Realistically, you can only move 2 directions at a time.
@@ -160,14 +176,32 @@ public class Player : KinematicBody2D, IAttacker, IDamageable
         { 
             FrameMoving = true;
             //Move and collide along the vector translated from the direction, times speed, normalize with delta
-            MoveAndCollide(Maps.DirVector[FrameDirection] * Speed * delta);
+            var col = MoveAndCollide(Maps.DirVector[FrameDirection] * Speed * delta);
+            if(col != null) { ProcessCollision(col); }
         }
         //Any extra movement abilities
-        if (Input.IsActionJustPressed("dash")) { Dash(delta); }
+        if (Input.IsActionJustPressed("dash")) 
+        {
+            MoveAndCollide(Maps.DirVector[FrameDirection] * (Speed * 40) * delta);
+        }
     }
 
-    private void Dash(float delta)
+    private void ProcessCollision(KinematicCollision2D collision)
     {
-        MoveAndCollide(Maps.DirVector[FrameDirection] * (Speed * 40) * delta);
+        if(collision.Collider is Enemy) 
+        {
+            var body = collision.Collider as Enemy;
+            body.ProcessCombatEvent(new CombatEvent() { DamageSent = 1000, Attacker = this });
+            TriggerDeath();
+        }
+    }
+
+    // - - - Behaviors - - - \\
+    public bool PlayerDead { get; private set; }
+
+    public void TriggerDeath()
+    {
+        PlayerDead = true;
+        Sprite.Play("death");
     }
 }

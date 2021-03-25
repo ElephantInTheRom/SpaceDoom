@@ -13,7 +13,6 @@ namespace SpaceDoom.Enemies
         private Label PointsLabel { get; set; }
         //Data
         public bool Dead { get; protected set; } = false;
-        public RayCast2D HitscanRaycast { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         //Godot methods
         public override void _Ready()

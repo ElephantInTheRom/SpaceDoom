@@ -11,9 +11,9 @@ namespace SpaceDoom.Systems.Combat
     public struct CombatEvent
     {
         public Weapon WeaponUsed { get; private set; }
-        public int DamageSent { get; private set; }
+        public int DamageSent { get; set; }
         public DamageEffect Effect { get; private set; }
-        public IAttacker Attacker { get; private set; }
+        public IAttacker Attacker { get; set; }
 
         public CombatEvent(Weapon weaponused, IAttacker attacker)
         {

@@ -37,6 +37,9 @@ public class CombatTestScene : SceneBase
         }
 
         MusicBackground.Play();
+
+        //This should be moved somewhere else but its fine here for testing
+        Engine.TargetFps = 120;
     }
 
     public override void _Process(float delta)
@@ -55,7 +58,11 @@ public class CombatTestScene : SceneBase
             }
         }
 
-        if (Input.IsActionJustPressed("Fullscreen")) { OS.WindowFullscreen = !OS.WindowFullscreen; }
+        if (Input.IsActionJustPressed("fullscreen_debug")) { OS.WindowFullscreen = !OS.WindowFullscreen; }
+        if (Input.IsActionJustPressed("fps_debug")) { 
+            Engine.TargetFps = (Engine.TargetFps == 0) ? 120 : 0;
+            GD.Print($"Set fps to {Engine.TargetFps}!"); 
+        }
     }
 
     //Spawning enemies for combat testing
