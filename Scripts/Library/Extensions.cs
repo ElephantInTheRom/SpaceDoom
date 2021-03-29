@@ -53,6 +53,13 @@ namespace SpaceDoom.Library.Extensions
             
         }
 
+        public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
+        {
+            if(val.CompareTo(max) > 0) { return max; }
+            else if(val.CompareTo(min) < 0) { return min; }
+            else { return val; }
+        }
+
         public static float ToDegrees(this double r) => (float)(r * (180 / Math.PI));
         public static double ToRadians(this float d) => (double)(d * (Math.PI / 180));
 
