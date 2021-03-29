@@ -35,6 +35,8 @@ namespace SpaceDoom.Enemies
             throw new NotImplementedException();
         }
 
+        
+
         // - - - Behavior - - - \\
         public override void TriggerDeath(int finalBlow)
         {

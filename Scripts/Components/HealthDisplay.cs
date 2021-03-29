@@ -12,17 +12,7 @@ namespace SpaceDoom.Components
         private Tween TweenAnimator { get; set; }
 
         //Health Data
-        public double MaxHealth
-        {
-            get { return MaxValue; }
-            set { MaxValue = value; }
-        }
-
-        public double CurrentHealth 
-        { 
-            get { return Value; } 
-            set { Value = value; } //Now this is epic
-        }
+        private double TargetValue { get; set; }
 
         //Visibility data
         private Color DefaultPTint { get; set; }
@@ -42,6 +32,7 @@ namespace SpaceDoom.Components
         {
             MaxValue = maxHealth;
             Value = currentHealth;
+            TargetValue = currentHealth;
             if (hide) { Hide(); }
             maxHidden = hide;
         }
@@ -57,10 +48,17 @@ namespace SpaceDoom.Components
         public void HealthChanged(int difference)
         {
             if (maxHidden) { Show(); maxHidden = false; }
+            //This is to check if the bar is currently being animated
+            if (Value > TargetValue)
+            {
+                TweenAnimator.StopAll();
+                Value = TargetValue;
+            } 
 
             var previous = Value;
             //If the change in health is less than 0, set to 0. Otherwise calculate difference.
             var current = (Value + difference < 0) ? 0 : Value + difference;
+            TargetValue = current;
             //This tween creates a smooth animation for the health bar.
             TweenAnimator.InterpolateProperty(this, "value", previous, current, .3f);
             TweenAnimator.Start();
