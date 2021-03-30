@@ -137,7 +137,7 @@ BulletSpeed = 310.0
 rotation = 3.14159
 frames = SubResource( 15 )
 animation = "idle"
-frame = 3
+frame = 5
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="."]
@@ -204,5 +204,9 @@ __meta__ = {
 
 [node name="AttackTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+enabled = true
+collision_mask = 2147483651
 [connection signal="animation_finished" from="Sprite" to="." method="SpriteAnimationFinished"]
 [connection signal="timeout" from="AttackTimer" to="." method="AttackTimeout"]

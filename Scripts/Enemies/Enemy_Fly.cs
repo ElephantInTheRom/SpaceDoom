@@ -12,6 +12,7 @@ namespace SpaceDoom.Enemies
         private Tween PointLabelTween { get; set; }
         private Label PointsLabel { get; set; }
         private Timer AttackTimer { get; set; }
+        private RayCast2D LOSCast { get; set; }
         //Data
         public bool Dead { get; protected set; } = false;
         private Random rng { get; set; }
@@ -28,6 +29,14 @@ namespace SpaceDoom.Enemies
             PointLabelTween = GetNode<Tween>("PointLabel/Tween");
             PointsLabel = GetNode<Label>("PointLabel");
             AttackTimer = GetNode<Timer>("AttackTimer");
+            LOSCast = GetNode<RayCast2D>("LineOfSight");
+        }
+
+        public override void _PhysicsProcess(float delta)
+        {
+            base._PhysicsProcess(delta);
+
+            LOSCast.CastTo(PlayerSingleton.PlayerScript.Position )
         }
 
         //Init
@@ -43,7 +52,11 @@ namespace SpaceDoom.Enemies
         {
             //Decide whether or not to attack the player (TODO: migrate this into a state machine!)
             var bias = (rng.NextDouble()+ AggressionBias).Clamp(0, 1);
-            if(bias > 0.7) { AttackPlayer(); }
+            if(bias > 0.7) 
+            { 
+                
+                
+            }
         }
 
         // - - - Targeting and Attacking - - - \\
@@ -53,6 +66,8 @@ namespace SpaceDoom.Enemies
         } //How aggresive the enemy is, from zero to one
         [Export] public float AttackDelay { get; private set; } //How often the enemy will try to attack
         [Export] public float BulletSpeed { get; private set; } //How fast its attacks can go
+
+        private bool PlayerLOS { get; set; } //Does the enemy have line of sight to the player?
 
         public override void ProcessCombatEvent(CombatEvent comEvent)
         {
