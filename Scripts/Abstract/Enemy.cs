@@ -71,7 +71,20 @@ namespace SpaceDoom.Library.Abstract
 
         protected void _invokeDealthAction(int finalBlow) => @Died?.Invoke(finalBlow);
 
-        // - - - Targeting/Attacking Methods - - -\\
+        // - - - Targeting/Attacking Methods&Data - - -\\
+        protected bool CanSeePlayer()
+        {
+            var cast = SendComplexCast(PlayerSingleton.PlayerInstance.GlobalPosition);
+            if(!cast.NoCollision && cast.ObjectHit is Player)
+            {
+                return true;
+            }
+            else 
+            { 
+                return false; 
+            }
+        }
+
 
         //Send out a complex raycast, and return IDamageable if there was a hit.
         public RaycastResults SendComplexCast(float range = 5000, float angleOffset = 0)
@@ -80,6 +93,13 @@ namespace SpaceDoom.Library.Abstract
 
             var destination = GlobalPosition.GetDistantPoint(theta + angleOffset, range);
 
+            var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this });
+
+            return new RaycastResults(result, destination);
+        }
+
+        public RaycastResults SendComplexCast(Vector2 destination)
+        {
             var result = SpaceState.IntersectRay(GlobalPosition, destination, new Godot.Collections.Array { this });
 
             return new RaycastResults(result, destination);

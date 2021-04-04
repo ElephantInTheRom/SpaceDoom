@@ -38,13 +38,15 @@ namespace SpaceDoom.Enemies
         }
 
         //Init
-        public void InjectData(CombatEvent evnt, Vector2 start, Vector2 velocity, float speed)
+        public void InjectData(CombatEvent evnt, Vector2 start, Vector2 target, float speed)
         {
             _CombatEvent = evnt;
             StartPos = start;
-            Velocity = velocity;
-            Speed = speed;
 
+            Velocity = new Vector2(target.x - start.x, target.y - start.y);
+            if (!Velocity.IsNormalized()) { Velocity = Velocity.Normalized(); }
+
+            Speed = speed;
             Position = start;
         }
     }

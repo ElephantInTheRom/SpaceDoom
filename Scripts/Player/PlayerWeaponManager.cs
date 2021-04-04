@@ -46,15 +46,15 @@ namespace SpaceDoom.Systems.Combat
         {
             //For testing we will start this list off will all weapons
             EquippedWeapons = new List<Weapon>()
-        {
-            new LaserGun(hitLayer, GetNode<Timer>("LaserGunTimer")),
-            new LaserBeam(hitLayer, GetNode<Timer>("LaserBeamTimer")),
-            new Grenade(projLayer, GetNode<Timer>("GrenadeTimer")),
-            new Pulsar(projLayer, GetNode<Timer>("PulsarTimer")),
-            new Crossbow(hitLayer, GetNode<Timer>("CrossbowTimer")),
-            new Flamethrower(hitLayer, GetNode<Timer>("FlamethrowerTimer")),
-            new Shotgun(hitLayer, GetNode<Timer>("ShotgunTimer"))
-        };
+            {
+                new LaserGun(hitLayer, GetNode<Timer>("LaserGunTimer")),
+                new LaserBeam(hitLayer, GetNode<Timer>("LaserBeamTimer")),
+                new Grenade(projLayer, GetNode<Timer>("GrenadeTimer")),
+                new Pulsar(projLayer, GetNode<Timer>("PulsarTimer")),
+                new Crossbow(hitLayer, GetNode<Timer>("CrossbowTimer")),
+                new Flamethrower(hitLayer, GetNode<Timer>("FlamethrowerTimer")),
+                new Shotgun(hitLayer, GetNode<Timer>("ShotgunTimer"))
+            };
 
             EquipWeapon(WeaponID.pl_lsrgun);
         }

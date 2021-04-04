@@ -15,6 +15,14 @@ namespace SpaceDoom.Systems.Combat
         public DamageEffect Effect { get; private set; }
         public IAttacker Attacker { get; set; }
 
+        public CombatEvent(int damage, IAttacker attacker, DamageEffect effect = null)
+        {
+            WeaponUsed = null;
+            DamageSent = damage;
+            Effect = effect;
+            Attacker = attacker;
+        }
+
         public CombatEvent(Weapon weaponused, IAttacker attacker)
         {
             WeaponUsed = weaponused;

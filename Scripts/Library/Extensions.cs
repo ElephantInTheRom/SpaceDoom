@@ -13,7 +13,7 @@ namespace SpaceDoom.Library.Extensions
         public static Vector2 RelativeTo(this Vector2 destination, Vector2 origin)
         {
             return new Vector2(destination.x - origin.x, destination.y - origin.y);
-        }      
+        }   
 
         /// <summary>
         /// Gets the coordinates of a point given the angle and distance

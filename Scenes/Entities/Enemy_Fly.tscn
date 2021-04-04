@@ -131,13 +131,15 @@ collision_layer = 2147483650
 collision_mask = 11
 script = ExtResource( 7 )
 Health = 50
+AttackDelay = 3.0
 BulletSpeed = 310.0
+Damage = 10.0
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 rotation = 3.14159
 frames = SubResource( 15 )
 animation = "idle"
-frame = 5
+frame = 4
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="."]
