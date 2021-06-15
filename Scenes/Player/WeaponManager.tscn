@@ -25,6 +25,7 @@ one_shot = true
 
 [node name="ShotgunTimer" type="Timer" parent="."]
 one_shot = true
+
 [connection signal="timeout" from="LaserGunTimer" to="." method="Lsrguntimeout"]
 [connection signal="timeout" from="LaserBeamTimer" to="." method="Lsrbeamtimeout"]
 [connection signal="timeout" from="GrenadeTimer" to="." method="Grenadetimeout"]

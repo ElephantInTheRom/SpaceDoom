@@ -1,25 +1,17 @@
 # Godot-specific ignores
-.import\
+.import/
 export.cfg
 export_presets.cfg
 
 # Mono-specific ignores
-.mono\
+.mono/
 mono_crash.*.json
 packages
-data_*\
 
 # System/tool-specific ignores
 .directory
 
 # IDE specific
 .idea
-.vs\
+.vs/
 *~
-<<<<<<< Updated upstream
-
-# Imported translations (automatically generated from CSV files)
-*.translation
-
-=======
->>>>>>> Stashed changes

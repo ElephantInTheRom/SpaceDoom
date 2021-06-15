@@ -28,26 +28,6 @@ collision_mask = 4
 [node name="Shape" type="CollisionPolygon2D" parent="Area"]
 polygon = PoolVector2Array( -4, -24, 4, -24, 8, -8, 16, -4, 28, 0, 32, 0, 32, 32, 24, 32, 16, 28, 4, 32, -4, 32, -16, 28, -24, 32, -32, 32, -32, 0, -28, 0, -16, -4, -8, -8 )
 
-[node name="HitscanCast" type="RayCast2D" parent="."]
-visible = false
-enabled = true
-cast_to = Vector2( 200, 0 )
-collision_mask = 2
-
-[node name="Label" type="Label" parent="."]
-visible = false
-margin_left = 64.0
-margin_top = 8.0
-margin_right = 104.0
-margin_bottom = 22.0
-text = "Rotation degrees:
-Actual angle:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HitscanLayer" type="YSort" parent="."]
-
 [node name="WeaponManager" type="Node" parent="."]
 script = ExtResource( 3 )
 
@@ -72,9 +52,9 @@ one_shot = true
 [node name="ShotgunTimer" type="Timer" parent="WeaponManager"]
 one_shot = true
 
-[node name="Line2D" type="Line2D" parent="."]
-points = PoolVector2Array( 0, 0, 0, 0 )
-width = 5.0
+[node name="Firepoint" type="Node2D" parent="."]
+position = Vector2( 24, 0 )
+
 [connection signal="animation_finished" from="Sprite" to="." method="SpriteAnimationFinished"]
 [connection signal="timeout" from="WeaponManager/LaserGunTimer" to="WeaponManager" method="Lsrguntimeout"]
 [connection signal="timeout" from="WeaponManager/LaserBeamTimer" to="WeaponManager" method="Lsrbeamtimeout"]

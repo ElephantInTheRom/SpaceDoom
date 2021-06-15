@@ -20,14 +20,12 @@ current = true
 
 [node name="BGAnimation" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-frame = 1
 playing = true
 centered = false
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 pitch_scale = 0.8
-bus = "MusicBackground"
 
 [node name="EnemyOrigin" type="Node2D" parent="."]
 position = Vector2( 128, 128 )
@@ -51,5 +49,6 @@ autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
+
 [connection signal="finished" from="BGMusic" to="." method="MusicBackgroundFinished"]
 [connection signal="timeout" from="Timer" to="." method="CreateEnemy"]
